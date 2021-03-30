@@ -53,6 +53,13 @@ function findElement(arr, func){
 // findElement([1,2,3,4], num => num % 2 === 0);
 
 
+///// Find true
+// Check if a value is classified as a boolean primitive. Return true or false.
+
+const isABoolean = el => typeof el === "boolean";
+// isABoolean(true)
+// isABoolean("true")
+
 ///// Truncate a string
 
 // Truncate a string (first argument) if it is longer than the given maximum string length (second argument). Return the truncated string with a ... ending.
@@ -73,4 +80,124 @@ function confirmEnding(str, target){
     return str.slice(-target.length) === target;
 }
 
-confirmEnding("Bastian", "n");
+// confirmEnding("Bastian", "n");
+
+
+///// contains shared value (manual)
+
+const array1 = ['a', 'b', 'c', 'x'];
+const array2 = ['z', 'y', 'a'];
+
+function containsCommonItems2(arr1, arr2){
+    // loop through first array and create object where properties === items in the array
+    let map = {};
+    for ( let i = 0; i < array1.length; i++) {
+        if (!map[array1[i]]){
+            const item = array1[i];
+            map[item] = true;
+        }
+    }
+    // loop through second array and check if item in second array exists on created object
+    for (let j = 0; j < array2.length; j++){
+        if (map[array2[j]]) return true;
+    }
+    return false;
+}
+
+// containsCommonItems2(array1, array2)
+
+
+
+///// ///// contains shared value (with built-in methods)
+
+// const array1 = ['a', 'b', 'c', 'x'];
+// const array2 = ['z', 'y', 'a'];
+
+const containsCommonItems = (arr1, arr2) => arr1.some(item => arr2.includes(item)); 
+// containsCommonItems(array1, array2)
+
+
+///// Has same letters
+// Return true if the string in the first element of the array contains all of the letters of the string in the second element of the array.
+
+function mutation(arr) {
+    // loop through second string 
+    const str1 = arr[0].toLowerCase();
+    const str2 = arr[1].toLowerCase();
+
+    for (let i = 0; i < str2.length; i++){
+        // see if each letter in 2nd str is present in 1st
+        if (str1.indexOf(str2[i]) === -1) return false;
+    }
+    return true;
+}
+  
+// mutation(["hello", "Hello"]);
+
+
+///// Array in pieces
+// Write a function that splits an array (first argument) into groups the length of size (second argument) and returns them as a two-dimensional array.
+
+function chunkArrayInGroups(arr, size) {
+
+    const result = [];
+
+    for (let i = 0; i < arr.length; i + size){
+        // result.push(arr.slice(i,size));
+        console.log(arr.slice(i,i + size));
+    }
+    console.log(result);
+}
+  
+// chunkArrayInGroups(["a", "b", "c", "d"], 2);
+
+
+
+///// Summing from…to…
+// We'll pass you an array of two numbers. Return the sum of those two numbers plus the sum of all the numbers between them. The lowest number will not always come first.
+
+function sumAll(arr) {
+    const sortedArr = arr.sort((a,b)=>a-b);
+    let sum = 0;
+    for (let i = sortedArr[0]; i < sortedArr[1] + 1; i++){
+      sum += i;
+    }
+    return sum;
+}
+  
+//   sumAll([1, 4]);
+
+
+///// Find longest length
+
+const findLongestWordLength = str =>{
+    // split sentence into words - array
+    const words = str.split(' ');
+    // get longest length
+    const longestLength = words.reduce((accum, curr)=>{
+        if (curr.length > accum) return curr.length;
+        return accum;
+    },0);
+    return longestLength;
+};
+
+// findLongestWordLength("The quick brown fox jumped over the lazy dog");
+
+
+///// Largest value in sub array
+
+const largestOfFour = arr =>{
+    const biggestNums = []; 
+
+    for ( let [k,v] in Object.entries(arr)){
+        const biggestNum = arr[k].reduce((accum, curr)=>{
+            if (curr > accum) return curr;
+            return accum;
+        }, -Infinity); // smallest possible value to account for negatives
+        console.log(biggestNums);
+        biggestNums.push(biggestNum);
+    }
+    return biggestNums;
+};
+
+// largestOfFour([[4,5,1,3], [13,27,18,26],[32,35,37,39], [1000,1001,857,1]]);
