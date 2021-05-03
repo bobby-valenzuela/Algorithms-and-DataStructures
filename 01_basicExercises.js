@@ -201,3 +201,71 @@ const largestOfFour = arr =>{
 };
 
 // largestOfFour([[4,5,1,3], [13,27,18,26],[32,35,37,39], [1000,1001,857,1]]);
+
+
+///// Filter
+Array.prototype.myFilter = function(callback) {
+    var newArray = [];
+    const currentArray = this;
+    for ( let val of Object.values(currentArray)){
+      if (!!callback(val)) newArray.push(val);
+    }
+    return newArray;
+};
+
+
+
+function splitify(str) {
+    return str.split(/\s|-|,|\./);
+}  
+splitify("Hello World,I-am code");
+
+
+function sentensify(str) {
+    return str.split(/[-,.\s]/g).join(" ");
+}
+sentensify("May-the-force-be-with-you");
+
+
+function sumFibs(num) {
+    if ( num <= 1) return 1;
+    return (num -1) + (num -2);
+}
+console.log(sumFibs(1000));
+
+
+function addTogether(num1, num2) {
+
+    if (typeof num1 != "number") return undefined;
+
+    if (!num2){
+        return function( num ){
+            if (typeof num != "number") return undefined;
+            return num1 + num;
+        }
+    }
+
+    return num1 + num2;
+}
+  
+  addTogether(2,3);
+
+
+
+  
+//  fizz buzz
+
+ for ( let i = 1; i < 101; i++){
+ 
+     if ( i % 3 === 0 && i % 5 === 0 ) {
+         console.log("fizzbuzz", i);
+         continue;
+     };
+     if ( i % 3 ===0 ) console.log("fizz", i);
+     if ( i % 5 ===0 ) console.log("buzz", i);
+ 
+ }
+ 
+
+
+

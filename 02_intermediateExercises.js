@@ -444,4 +444,254 @@ function whatIsInAName(collection, source) {
 // console.log(test2);
 
 
+///// Palindrome
 
+// Basically: For each letter I’m searching to see if the current letter is equal to the letter in the string that has an index of the last element (length -1) minus the current index.
+// Note: It isn’t ideal/necessary to compare every letter in the string – only the first or last half because if half matches the other half will match as well since we are matching from on end to the other.
+
+
+function palindrome(str) {
+    for(let [k,v] of Object.entries(str)){
+        if(v !== str[str.length -1 -k]) return false;
+    }  
+    return true; 
+}
+
+// variation with JS built-in methods
+function palindrome(str) {
+    const reversed = str.split('').reverse().join('');
+    return str === reversed; 
+}
+
+///// Palindrome II
+
+
+// Return true if the given string is a palindrome. Otherwise, return false.
+// A palindrome is a word or sentence that's spelled the same way both forward and backward, ignoring punctuation, case, and spacing.
+// Note: You'll need to remove all non-alphanumeric characters (punctuation, spaces and symbols) and turn everything into the same case (lower or upper case) in order to check for palindromes.
+// We'll pass strings with varying formats, such as racecar, RaceCar, and race CAR among others.
+// We'll also pass strings with special symbols, such as 2A3*3a2, 2A3 3a2, and 2_A3*3#A2.
+
+function palindrome(str) {
+    // remove any non-alphanumeric characters
+    let trimmedString = str.replace(/[\s\W_/]*/g,'').toLowerCase();
+    
+    const reversedStr = trimmedString
+        .split('')              // convert to array
+        .sort((a, b) => a - b)  // array sort method
+        .reverse()              // array reverse method
+        .join('');              // join back into a string
+
+    if ( trimmedString === reversedStr) return true;
+
+    return false;
+}
+
+
+///// Frequency Counter
+
+// Given to numbers find out if the two numbers have same frequency of digits
+
+function sameFrequency(num1, num2){
+
+    const digitFreq = digits =>{
+        if( digits.length === 0) return {};
+        const digArr = digitFreq(digits.slice(1));
+        digArr[digits[0]] = digArr[digits[0]] > 0 ? digArr[digits[0]]+ 1 : 1;
+        return digArr;
+    };
+    const num1Fre = digitFreq(`${num1}`.split(''));
+    const num2Fre = digitFreq(`${num2}`.split(''));
+    for (let [key,value] of Object.entries(num1Fre)){
+        if(num1Fre[key] !== num2Fre[key]) return false;
+    }
+    return true;
+}
+
+
+
+///// Duplicate counter
+
+function areThereDuplicates(...arr) {
+    const frequency = arrayPassed =>{
+        if(arrayPassed.length === 0) return {};
+        const obj = frequency(arrayPassed.slice(1));
+        obj[arrayPassed[0]] = obj[arrayPassed[0]] > 0 ? obj[arrayPassed[0]] + 1 : 1;
+        return obj;
+    }
+    const freqObj = frequency(arr);  
+    for(let val of Object.values(freqObj)){
+        if(val > 1) return true;
+    }
+    return false;
+}
+
+
+///// Average Pair I
+
+// Given an array and a target average, find if any two consecutive numbers in the array are equal to the target average:7
+
+function averagePair(arr, targ){
+    for(let i = 0; i < arr.length; i++){
+        const avg = (arr[i] + arr[i + 1]) / 2;
+        if(avg === targ) return true;
+    }
+    return false;
+}
+
+// Average Pair variation
+
+function averagePair(arr, targAvg){
+    for(let i = 0; i < arr.length; i++){
+        let numToReachTargAvg = (targAvg * 2) - arr[i];
+        if(arr.indexOf(numToReachTargAvg) != -1) return true;
+    }
+    return false;
+}
+
+///// isSubsequence
+
+// Write a function called isSubsequence which takes in two strings and checks whether the characters in the first string form a subsequence of the characters in the second string. In other words, the function should check whether the characters in the first string appear somewhere in the second string, without their order changing
+
+
+function isSubsequence(subStr, fullStr) {
+    // confirm if first letter of sub is in full
+    if(fullStr.indexOf(subStr[0]) === -1) return false;
+    // set idx to start searching search FROM
+    let idxOfLastFound = fullStr.indexOf(subStr[0]);
+    // loop through sub
+    for(let i = 1; i < subStr.length -1; i++){
+        const thisLetter = subStr[i];
+        const fullStrSlicedFromPrev = fullStr.slice(idxOfLastFound);
+        const idxInfullofCurrentAfterPrev = fullStrSlicedFromPrev.indexOf(thisLetter);
+        // set lastfoundindex to one we just found
+        idxOfLastFound = idxInfullofCurrentAfterPrev;
+        // if we didn't find - return false
+        if(idxInfullofCurrentAfterPrev === -1) return false;
+    }
+    return true;
+}
+
+///// Is Substring
+
+// Check if one string is a substring of the other
+
+function Substring(str1, str2) {
+    for(let i = 0; i < str1.length; i++){
+        if(str2.indexOf(str1[i]) != -1){
+            const testMatch = str2.slice(str2.indexOf(str1[i]),str2.indexOf(str1[i]) + str1.length);
+            console.log(testMatch);
+            console.log(str2.indexOf(str1[i]),str2.indexOf(str1[i]) + str1.length);
+            if(str1 === testMatch) return true;
+        }
+    }
+    return false;
+}
+
+
+///// maxSubarraySum
+
+// Accepts an array of integers and a number 'n'. Calculates the max sum of 'n' consecutive elements in the array passed in.
+
+function maxSubarraySum(arr,count){
+    let maxSum = 0;
+    let tempSum = 0;
+    // make sure array is long enough
+    if (arr.length < num) return null;
+    // get sum of first n number of els
+    for (let i = 0; i < count; i++){
+        maxSum += arr[i];
+    }
+    // we need the maxSum value saved unchanged so we ca compare against later
+    // we also need to manipulate the current max value - so we save a copy
+    tempSum = maxSum;
+    // loop through subArrays (windows)
+    // note: we can go to last elem (arr.length) 
+    // because we are adding this last value to every window
+    for (let i = count ; i < arr.length; i++){
+        // add end value
+        tempSum += arr[i];
+        // remove previous initial value
+        tempSum -= arr[i - count];
+        maxSum = Math.max(maxSum, tempSum);
+    }
+    return maxSum;
+}
+
+///// maxSubarraySum
+
+/* Given an array of integers and a number, write a function called maxSubarraySum</b>, which finds the maximum sum of a subarray with the length of the number passed to the function. 
+Note that a subarray must consist of <i>consecutive elements from the original array. In the first example below, [100, 200, 300] is a subarray of the original array, but [100, 300] is not.*/
+
+
+function maxSubarraySum(arr, num){
+    if (arr.length < num) return null;
+ 
+    let total = 0;
+    for (let i=0; i<num; i++){
+       total += arr[i];
+    }
+    let currentTotal = total;
+    for (let i = num; i < arr.length; i++) {
+       currentTotal += arr[i] - arr[i-num];
+       total = Math.max(total, currentTotal);
+    }
+    return total;
+}
+
+///// findLongestSubstring
+
+// Write a function called findLongestSubstring, which accepts a string and returns the length of the longest substring with all distinct characters.
+
+function findLongestSubstring(str) {
+    let longest = 0;
+    let seen = {};
+    let start = 0;
+   
+    for (let i = 0; i < str.length; i++) {
+      let char = str[i];
+      if (seen[char]) {
+        start = Math.max(start, seen[char]);
+      }
+      // index - beginning of substring + 1 (to include current in count)
+      longest = Math.max(longest, i - start + 1);
+      // store the index of the next char so as to not double count
+      seen[char] = i + 1;
+    }
+    return longest;
+  }
+
+///// minSubArrayLen
+
+// Write a function called minSubArrayLenwhich accepts two parameters - an array of positive integers and a positive integer.
+// This function should return the minimal length of a contiguous subarray of which the sum is greater than or equal to the integer passed to the function. If there isn't one, return 0 instead.
+
+function minSubArrayLen(nums, sum) {
+    let total = 0;
+    let start = 0;
+    let end = 0;
+    let minLen = Infinity;
+   
+    while (start < nums.length) {
+      // if current window doesn't add up to the given sum then 
+          // move the window to right
+      if(total < sum && end < nums.length){
+        total += nums[end];
+              end++;
+      }
+      // if current window adds up to at least the sum given then
+          // we can shrink the window 
+      else if(total >= sum){
+        minLen = Math.min(minLen, end-start);
+              total -= nums[start];
+              start++;
+      } 
+      // current total less than required total but we reach the end, 
+      //need this or else we'll be in an infinite loop 
+      else {
+        break;
+      }
+    }
+   
+    return minLen === Infinity ? 0 : minLen;
+}
