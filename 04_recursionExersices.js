@@ -35,6 +35,15 @@ const countUpTo = (startVal, endVal) =>{
     countUp(startVal + 1);
 };
 
+// accepts a number - returns array filled with numbers up to that number inclusively
+const countdown = n =>{
+    if(n < 1) return [];
+    const myArr = countdown(n - 1);
+    myArr.push(n);
+    return myArr;
+};
+
+
 const someArr = [1,2,3,4,5];
 
 const iterateOverArray = arr =>{

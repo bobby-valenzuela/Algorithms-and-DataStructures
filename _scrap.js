@@ -34,21 +34,16 @@ var Person = function(firstAndLast) {
   
   
     // return firstAndLast;
-  };
+};
   
   var bob = new Person('Bob Ross');
-  // bob.getFullName();
-  // bob.getFirstName();
+  bob.getFullName();
+  bob.getFirstName();
   bob.setFirstName("Haskell");
   console.log(bob.getFullName);
-  // console.log(bob.getFirstName());
+  console.log(bob.getFirstName());
 
-const countdown = n =>{
-    if(n < 1) return [];
-    const myArr = countdown(n - 1);
-    myArr.push(n);
-    return myArr;
-};
+
 
 
 const result = {
@@ -72,9 +67,6 @@ function makeList(arr) {
 }
   
 const failuresList = makeList(result.failure);
-
-
-
 
 
 

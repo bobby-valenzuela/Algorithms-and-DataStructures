@@ -267,5 +267,28 @@ function addTogether(num1, num2) {
  }
  
 
-
+const GetSum = (a, b) => {
+    let min = Math.min(a, b),
+        max = Math.max(a, b);
+    return (max - min + 1) * (min + max) / 2;
+  }
+  
+  
+  // ATM machines allow 4 or 6 digit PIN codes and PIN codes cannot contain anything but exactly 4 digits or exactly 6 digits.
+  // If the function is passed a valid PIN string, return true, else return false.
+  
+  function validatePIN(pin) {
+    return /^(\d{4}|\d{6})$/.test(pin)
+  }
+  
+  
+  
+  // Usually when you buy something, you're asked whether your credit card number, phone number or answer to your most secret question is still correct. However, since someone could look over your shoulder, you don't want that shown on your screen. Instead, we mask it.
+  // Your task is to write a function maskify, which changes all but the last four characters into '#'.
+  
+  const maskify = cc =>   [...cc].map((char,idx,arr)=> idx < arr.length - 4 ? '#' : char).join('');
+  
+  
+  // Your task is to make a function that can take any non-negative integer as an argument and return it with its digits in descending order. Essentially, rearrange the digits to create the highest possible number.
+  const descendingOrder = n => parseInt([...`${n}`].sort().reverse().join(''));
 
