@@ -695,3 +695,178 @@ function minSubArrayLen(nums, sum) {
    
     return minLen === Infinity ? 0 : minLen;
 }
+
+
+/*
+Write a function called removeVowels which accepts a string and returns a new string with all of the vowels (both uppercased and lowercased) removed. Every character in the new string should be lowercased.
+
+Examples:
+    removeVowels('Elie') // ('l')
+    removeVowels('TIM') // ('tm')
+    removeVowels('ZZZZZZ') // ('zzzzzz')
+*/
+
+const removeVowels = str => str.toLowerCase().split('').filter(l=>"aeiou".split('').indexOf(l) === -1).join('');
+
+
+// Check if has no duplicates
+ const hasNoDups = arr => arr.every(el=>arr.indexOf(el) === arr.lastIndexOf(el));
+ 
+ 
+ 
+ /*
+Write a function called vowelCount which accepts a string and returns an object with the keys as the vowel and the values as the number of times the vowel appears in the string. This function should be case insensitive so a lowercase letter and uppercase letter should count
+
+Examples:
+    vowelCount('Elie') // {e:2,i:1};
+    vowelCount('Tim') // {i:1};
+    vowelCount('Matt') // {a:1})
+    vowelCount('hmmm') // {};
+    vowelCount('I Am awesome and so are you') // {i: 1, a: 4, e: 3, o: 3, u: 1};
+*/
+
+ function vowelCount(str){
+     return str.split('').reduce(
+        (acc,cur)=>{
+            if('aeiou'.split('').indexOf(cur) !== -1){
+                !!acc[cur] ? acc[cur]++ : acc[cur] = 1;
+            }   
+            return acc;         
+        }
+    ,{})  
+}
+
+
+
+/*
+Write a function called addKeyAndValue which accepts an array of objects and returns the array of objects passed to it with each object now including the key and value passed to the function.
+
+Examples:
+    var arr = [{name: 'Elie'}, {name: 'Tim'}, {name: 'Matt'}, {name: 'Colt'}];
+    
+    addKeyAndValue(arr, 'title', 'Instructor') // 
+      [
+        {title: 'Instructor', name: 'Elie'}, 
+        {title: 'Instructor', name: 'Tim'}, 
+        {title: 'Instructor', name: 'Matt'}, 
+        {title: 'Instructor', name: 'Colt'}
+       ]
+*/
+
+function addKeyAndValue(arr, key, value){
+         return arr.reduce(
+        (acc,cur)=>{
+            cur[key] = value;
+            acc.push(cur);
+            return acc;
+        }
+    ,[]);   
+}
+
+
+/*
+Write a function called partition which accepts an array and a callback and returns an array with two arrays inside of it. The partition function should run the callback function on each value in the array and if the result of the callback function at that specific value is true, the value should be placed in the first subarray. If the result of the callback function at that specific value is false, the value should be placed in the second subarray. 
+
+Examples:
+    
+    function isEven(val){
+        return val % 2 === 0;
+    }
+    
+    var arr = [1,2,3,4,5,6,7,8];
+    
+    partition(arr, isEven) // [[2,4,6,8], [1,3,5,7]];
+    
+    function isLongerThanThreeCharacters(val){
+        return val.length > 3;
+    }
+    
+    var names = ['Elie', 'Colt', 'Tim', 'Matt'];
+    
+    partition(names, isLongerThanThreeCharacters) // [['Elie', 'Colt', 'Matt'], ['Tim']]
+*/
+
+function partition(arr, callback){
+        return arr.reduce(
+        (acc,cur)=>{
+            
+            // if true put in first arr
+            if(!!callback(cur)){
+                acc[0].push(cur);
+            }
+            else{
+                acc[1].push(cur);
+            }
+            return acc;
+        }
+    ,[ [],[] ] )
+}
+
+
+
+
+/* 
+Write a function called specialMultiply which accepts two parameters. If the function is passed both parameters, it should return the product of the two. If the function is only passed one parameter - it should return a function which can later be passed another parameter to return the product. You will have to use closure and arguments to solve this.
+
+Examples: 
+
+    specialMultiply(3,4); // 12
+    specialMultiply(3)(4); // 12
+    specialMultiply(3); // function(){}....
+*/
+
+function specialMultiply(a,b){
+    if([...arguments].length ==2){
+        return a * b;
+    }
+    else{
+        return function(b){return a * b}
+    }
+}
+
+
+/* 
+Write a function called guessingGame which takes in one parameter amount. The function should return another function that takes in a parameter called guess. In the outer function, you should create a variable called answer which is the result of a random number between 0 and 10 as well as a variable called guesses which should be set to 0.
+
+In the inner function, if the guess passed in is the same as the random number (defined in the outer function) - you should return the string "You got it!". If the guess is too high return "Your guess is too high!" and if it is too low, return "Your guess is too low!". You should stop the user from guessing if the amount of guesses they have made is greater than the initial amount passed to the outer function.
+
+You will have to make use of closure to solve this problem.
+
+Examples (yours might not be like this, since the answer is random every time):
+
+    var game = guessingGame(5)
+    game(1) // "You're too low!"
+    game(8) // "You're too high!"
+    game(5) // "You're too low!"
+    game(7) // "You got it!"
+    game(1) // "You are all done playing!"
+
+    var game2 = guessingGame(3)
+    game2(5) // "You're too low!"
+    game2(3) // "You're too low!"
+    game2(1) // "No more guesses the answer was 0"
+    game2(1) // "You are all done playing!"
+*/
+
+function guessingGame(amount){
+    let answer = Math.floor(Math.random() * 11);
+    let guesses = 0;
+        
+
+    
+    return function (guess){
+        if(guesses >= amount) return 'You are all done playing!';
+        guesses++;
+        if (guess === answer){
+            return 'You got it!';
+            
+        }
+        else if (guess > answer){
+            return 'Your guess is too high!';
+        }
+        else{
+            return 'Your guess is too low!'; 
+        }
+    }
+}
+
