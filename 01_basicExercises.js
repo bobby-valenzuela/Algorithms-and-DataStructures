@@ -292,3 +292,77 @@ const GetSum = (a, b) => {
   // Your task is to make a function that can take any non-negative integer as an argument and return it with its digits in descending order. Essentially, rearrange the digits to create the highest possible number.
   const descendingOrder = n => parseInt([...`${n}`].sort().reverse().join(''));
 
+
+// Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number.
+
+createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) // => returns "(123) 456-7890"
+
+const createPhoneNumber = num => `(${num[0]}${num[1]}${num[2]}) ${num[3]}${num[4]}${num[5]}-${num[6]}${num[7]}${num[8]}${num[9]}`;
+
+/* 
+Write a function called smallestValue which accepts a variable number of parameters and returns the smallest parameters passed to the function.
+
+Examples:
+    smallestValue(4,1,12,0) // 0
+    smallestValue(5,4,1,121) // 1
+    smallestValue(4,2) // 2
+    smallestValue(99,12321,12.2) // 2
+*/
+
+function smallestValue(){
+    return Math.min(...arguments)
+}
+
+/* 
+Write a function called placeInMiddle which accepts two parameters, an array and another array. This function should return the first array with all of the values in the second array placed in the middle of the first array.
+
+Examples:
+    placeInMiddle([1,2,6,7],[3,4,5]) // [1,2,3,4,5,6,7]
+    placeInMiddle([1],[3,4,5]) // [3,4,5,1]
+    placeInMiddle([1,6],[2,3,4,5]) // [1,2,3,4,5,6]
+    placeInMiddle([],[2,3,4,5]) // [2,3,4,5]
+*/
+
+function placeInMiddle(arr, vals){
+    
+    const midIndex = Math.floor(arr.length / 2);
+    arr.splice(midIndex,0,...vals);
+    return arr;
+    
+}
+
+/* 
+Write a function called joinArrays which accepts a variable number of parameters (you can assume that each argument to this function will be an array) and returns an array of all of the parameters concatenated together
+
+Examples:
+
+    joinArrays([1],[2],[3]) // [1,2,3]
+    joinArrays([1],[2],[3],[1],[2],[3]) // [1,2,3,1,2,3]
+    joinArrays([1,2,3],[4,5,6],[7,8,9]) // [1,2,3,4,5,6,7,8,9]
+    joinArrays([1],[3],[0],[7]) // [1,3,0,7]
+
+*/
+
+function joinArrays(){
+    
+    return [...arguments].reduce( (acc, curr)=>{
+        
+        for (let item of curr){
+            acc.push(item);            
+        }
+        return acc;
+    },[] );
+    
+}
+
+/* 
+// Write a function called sumEvenArgs which takes all of the parameters passed to a function and returns the sum of the even ones.
+
+Examples:
+    sumEvenArgs(1,2,3,4) // 6
+    sumEvenArgs(1,2,6) // 8
+    sumEvenArgs(1,2) // 2
+*/
+
+function sumEvenArgs(){return [...arguments].reduce( ( acc, curr )=> curr % 2 === 0 ? acc + curr : acc,0 )}
+ 
