@@ -366,3 +366,19 @@ Examples:
 
 function sumEvenArgs(){return [...arguments].reduce( ( acc, curr )=> curr % 2 === 0 ? acc + curr : acc,0 )}
  
+
+///// Reverse Array
+
+const reverseArr = arr =>{
+
+    for (let [i,v] of Object.entries(arr)){
+
+        if (i >= Math.ceil(arr.length / 2)) break;
+
+        [ arr[i], arr[ arr.length - 1 - i] ] = [ arr[ arr.length - 1 - i] , arr[i] ]
+
+    }
+    console.log(arr)
+    return arr;
+
+};
