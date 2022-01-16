@@ -113,6 +113,19 @@ function steamrollArray(arr) {
 //   steamrollArray([7, [2], [3, [[4]]]]);
 
 
+///// Flatten an array - purely recursive
+function flatten(arr, result = []) {
+    for (let i in arr) {
+        if (arr[i] instanceof Array) {
+            flatten(arr[i], result)
+        }
+        else result.push(arr[i])
+    }
+ 
+    return result;
+}
+
+
 
 ///// Reversed Int
 
