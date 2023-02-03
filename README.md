@@ -1,2 +1,1 @@
-# algorithms-challenges
-A collection of algorithmic challenges
+My Working through several courses on Data Structures and Algorithms
