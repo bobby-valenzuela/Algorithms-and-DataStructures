@@ -1,5 +1,5 @@
 // Merges two sorted arrays
-function mergeSort(a,b){
+function merge(a,b){
 
     const result = []
     let i = j = 0
@@ -30,10 +30,18 @@ function mergeSort(a,b){
         i++
     }
 
-    console.log(result)
-
+    
     return result
-
+    
 }
 
-mergeSort( [1,3,9],[2,4,6,8] )
+function mergeSort(arr){
+    if (arr.length <= 1) return arr
+    let mid = Math.floor(arr.length/2)
+    let left = mergeSort(arr.slice(0,mid)) 
+    let right = mergeSort(arr.slice(mid))
+    return merge(left,right)    // Sort and merge each arr pair
+}
+
+const result = mergeSort( [75,3,64,22,2] )
+console.log(result)
