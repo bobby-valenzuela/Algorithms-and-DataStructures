@@ -20,6 +20,15 @@ class SinglyLinkedList {
         this.length++;
         return this;
     }
+    pop() { 
+
+    }
+    traverse() { 
+        let current = this.head;
+        while (current) { 
+            current = current.next;
+        }
+    }
 }
 
 class Node{
@@ -33,6 +42,8 @@ const list = new SinglyLinkedList();
 list.push("first");
 list.push("second");
 list.push("third");
+
+// list.traverse();
 
 // SinglyLinkedList {
 //     head: Node { val: 'first', next: Node { val: 'second', next: [Node] } },
