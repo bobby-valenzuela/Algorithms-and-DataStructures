@@ -57,6 +57,13 @@ class SinglyLinkedList {
         }
         
     }
+    shift() { // Remove/return first node 
+        if (!this.head) return undefined;
+        const oldHead = this.head;
+        this.head = this.head.next;
+        this.length--;
+        return oldHead
+    }
     traverse() { 
         let current = this.head;
         while (current) { 
