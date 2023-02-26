@@ -22,6 +22,40 @@ class SinglyLinkedList {
     }
     pop() { 
 
+        if (!this.head) return undefined;
+        
+        // If there's only one node left... reset
+        if (this.head === this.tail) {
+            console.log("popping only node")
+            const toPop = this.head;
+            this.head = this.tail = null;
+            this.length = 0;
+            return toPop;
+         }
+
+        let current = this.head;
+
+        while (current) { 
+            // 1. Get second to last item - set as tail
+            // 2. Remove and return the current tail
+
+
+            let next = current.next;
+
+            // If the next is the last then we're on the 2nd to last node
+            if (next === this.tail) {
+                // point 'next' of new tail to null
+                current.next = null;
+                // Set new tail
+                this.tail = current;
+                // Update list length
+                this.length--;
+                // Return 2nd to last
+                return next;
+            }
+            current = next;
+        }
+        
     }
     traverse() { 
         let current = this.head;
@@ -39,9 +73,27 @@ class Node{
 }
 
 const list = new SinglyLinkedList();
-list.push("first");
-list.push("second");
-list.push("third");
+// list.push("first");
+// list.push("second");
+// list.push("third");
+
+// console.log(list);
+// console.log("about to pop\n")
+// console.log(list.pop());
+// console.log(list);
+// console.log("about to pop\n")
+// console.log(list.pop());
+// console.log(list);
+// console.log("about to pop\n")
+// console.log(list.pop());
+// console.log(list);
+// console.log("\n\nabout to pop!!!\n")
+// console.log(list.pop());
+// console.log(list);
+// list.push("first");
+// console.log(list);
+// list.push("second");
+// console.log(list);
 
 // list.traverse();
 
