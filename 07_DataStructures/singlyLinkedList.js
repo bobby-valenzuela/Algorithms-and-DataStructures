@@ -68,8 +68,16 @@ class SinglyLinkedList {
         }
         return oldHead
     }
-    unshift() { // Add new node to beinning 
-
+    unshift(val) { // Add new node to beginning (get new head - point it to old head) 
+        const newNode = new Node(val);
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = this.head;
+        }
+        newNode.next = this.head;
+        this.head = newNode;
+        this.length++;
+        return this;
     }
     traverse() { 
         let current = this.head;
@@ -107,6 +115,8 @@ const list = new SinglyLinkedList();
 // list.push("first");
 // console.log(list);
 // list.push("second");
+// console.log(list);
+// list.unshift("newfirst");
 // console.log(list);
 
 // list.traverse();
