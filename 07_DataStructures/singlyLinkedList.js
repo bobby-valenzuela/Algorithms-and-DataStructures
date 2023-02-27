@@ -62,7 +62,14 @@ class SinglyLinkedList {
         const oldHead = this.head;
         this.head = this.head.next;
         this.length--;
+
+        if (!this.head) {
+            this.tail = null ;
+        }
         return oldHead
+    }
+    unshift() { // Add new node to beinning 
+
     }
     traverse() { 
         let current = this.head;
