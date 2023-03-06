@@ -74,10 +74,24 @@ class SinglyLinkedList {
             this.head = newNode;
             this.tail = this.head;
         }
-        newNode.next = this.head;
-        this.head = newNode;
+        else { 
+            newNode.next = this.head;
+            this.head = newNode;
+        }
         this.length++;
         return this;
+    }
+    get(index) { 
+        index = parseInt(index);
+        if (index < 0 || index >= this.length) return null;
+        let counter = 0;
+        let current = this.head;
+        while (counter !== index) {
+            current = current.next;
+            counter++;
+        }
+        return current;
+
     }
     traverse() { 
         let current = this.head;
