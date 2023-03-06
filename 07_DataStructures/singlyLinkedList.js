@@ -1,3 +1,10 @@
+class Node{
+    constructor(val) { 
+        this.val = val;
+        this.next = null;
+    }
+}
+
 class SinglyLinkedList { 
     constructor() { 
         this.head = null;
@@ -93,6 +100,29 @@ class SinglyLinkedList {
         return current;
 
     }
+    set(index, val) { 
+        const foundNode = this.get(index);
+        if (foundNode) { 
+            foundNode.val = val;
+            return true;
+        }
+        return false;
+    }
+    insert(index, val) { 
+        if (index < 0 || index > this.length) return false;
+        if (index === this.length) return !!this.push(val);
+        if (index === 0) return !!this.unshift(val);
+
+        const newNode = new Node(val);
+        const prevNode = this.get(index - 1);
+        const nextNode = this.get(index + 1);
+
+        prevNode.next = newNode;
+        newNode.next = nextNode;
+        this.length++;
+        return true;
+
+    }
     traverse() { 
         let current = this.head;
         while (current) { 
@@ -101,17 +131,12 @@ class SinglyLinkedList {
     }
 }
 
-class Node{
-    constructor(val) { 
-        this.val = val;
-        this.next = null;
-    }
-}
+
 
 const list = new SinglyLinkedList();
-// list.push("first");
-// list.push("second");
-// list.push("third");
+list.push("first");
+list.push("second");
+list.push("third");
 
 // console.log(list);
 // console.log("about to pop\n")
