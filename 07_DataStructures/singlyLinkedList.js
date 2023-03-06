@@ -33,7 +33,6 @@ class SinglyLinkedList {
         
         // If there's only one node left... reset
         if (this.head === this.tail) {
-            console.log("popping only node")
             const toPop = this.head;
             this.head = this.tail = null;
             this.length = 0;
@@ -112,15 +111,36 @@ class SinglyLinkedList {
         if (index < 0 || index > this.length) return false;
         if (index === this.length) return !!this.push(val);
         if (index === 0) return !!this.unshift(val);
-
+        
         const newNode = new Node(val);
         const prevNode = this.get(index - 1);
         const nextNode = this.get(index + 1);
-
+        
         prevNode.next = newNode;
         newNode.next = nextNode;
         this.length++;
         return true;
+        
+    }
+    // Remove by index
+    remove(index) { 
+        if (index < 0 || index >= this.length) return undefined;
+        
+        // Removing first node
+        if (index === 0) return this.shift();
+        
+        // Removing last node
+        console.log(this.length)
+        if (index === (this.length - 1)) console.log("Continuing...");
+        if (index === this.length - 1) return this.pop();
+
+        const foundNode = this.get(index);
+        const prevNode = this.get(index - 1);
+        const nextNode = this.get(index + 1);
+         
+        prevNode.next = foundNode.next;
+        this.length--;
+        return this.foundNode;
 
     }
     traverse() { 
@@ -137,6 +157,9 @@ const list = new SinglyLinkedList();
 list.push("first");
 list.push("second");
 list.push("third");
+list.remove(0);
+list.remove(1);
+console.log(list);
 
 // console.log(list);
 // console.log("about to pop\n")
