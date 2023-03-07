@@ -143,6 +143,27 @@ class SinglyLinkedList {
         return this.foundNode;
 
     }
+    reverse() {
+        // Swap head and tail
+        [this.tail, this.head] = [this.head, this.tail];
+        
+        let current = this.tail;
+        let prev = null;
+
+        while (current) { 
+            
+            // Save the next
+            const next = current.next;
+
+            // Update next to point at the previous one
+            current.next = prev;
+            prev = current;
+            current = next;
+
+        }
+
+
+    }
     traverse() { 
         let current = this.head;
         while (current) { 
@@ -157,9 +178,13 @@ const list = new SinglyLinkedList();
 list.push("first");
 list.push("second");
 list.push("third");
-list.remove(0);
-list.remove(1);
-console.log(list);
+console.log(list)
+list.reverse();
+console.log(list)
+
+// list.remove(0);
+// list.remove(1);
+// console.log(list);
 
 // console.log(list);
 // console.log("about to pop\n")
