@@ -170,6 +170,16 @@ class SinglyLinkedList {
             current = current.next;
         }
     }
+    print() { 
+        const arr = [];
+        let current = this.head;
+
+        while (current) { 
+            arr.push(current.valxx``);
+            current = current.next;
+        }
+        console.log(arr);
+    }
 }
 
 
@@ -180,7 +190,7 @@ list.push("second");
 list.push("third");
 console.log(list)
 list.reverse();
-console.log(list)
+list.print()
 
 // list.remove(0);
 // list.remove(1);
