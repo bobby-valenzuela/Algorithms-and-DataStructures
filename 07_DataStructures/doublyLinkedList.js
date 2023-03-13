@@ -58,15 +58,17 @@ class DoublyLinkedList {
         const oldHead = this.head;
         
         // If there's only one node left... reset
-        if (this.length === 1) this.head = this.tail = null;
-        
-        this.head = oldHead.next; // If we removed the last node - there wouldn't be a this.head.next, so this line would set the new head (this.head) to null.
-        
-        // If we still have a head at this point - make sure to reset it's prev pointer
-        if (this.head) this.head.prev = null;      
-        
-        // If we removed the last node - make sure the tail is removed as well.
-        if (!this.head) this.tail = null;
+        if (this.length === 1) {
+            this.head = this.tail = null;
+        }
+        else {
+            // Update new head
+            this.head = oldHead.next;
+            
+            // reset this.head's it's prev pointer
+            this.head.prev = null;      
+            
+        }
         
         this.length--;
 
