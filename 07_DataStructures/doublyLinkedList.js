@@ -76,19 +76,25 @@ class DoublyLinkedList {
         oldHead.next = null;
         return oldHead
     }
-    // unshift(val) { // Add new node to beginning (get new head - point it to old head) 
-    //     const newNode = new Node(val);
-    //     if (!this.head) {
-    //         this.head = newNode;
-    //         this.tail = this.head;
-    //     }
-    //     else { 
-    //         newNode.next = this.head;
-    //         this.head = newNode;
-    //     }
-    //     this.length++;
-    //     return this;
-    // }
+    unshift(val) { // Add new node to beginning (get new head - point it to old head) 
+
+        const newNode = new Node(val);
+
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = this.head;
+        }
+        else {
+            // Old head 'prev' (2nd item now) to point to new head
+            this.head.prev = newNode;
+            // new head 'next' to point to old head
+            newNode.next = this.head;
+            // Set new head
+            this.head = newNode;
+        }
+        this.length++;
+        return this;
+    }
     // get(index) { 
     //     index = parseInt(index);
     //     if (index < 0 || index >= this.length) return null;
