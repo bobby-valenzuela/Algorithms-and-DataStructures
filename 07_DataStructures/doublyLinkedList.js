@@ -53,17 +53,27 @@ class DoublyLinkedList {
         popped.prev = null;
         return popped;
     }
-    // shift() { // Remove/return first node 
-    //     if (!this.head) return undefined;
-    //     const oldHead = this.head;
-    //     this.head = this.head.next;
-    //     this.length--;
+    shift() { // Remove/return first node 
+        if (!this.head) return undefined;
+        const oldHead = this.head;
+        
+        // If there's only one node left... reset
+        if (this.length === 1) this.head = this.tail = null;
+        
+        this.head = oldHead.next; // If we removed the last node - there wouldn't be a this.head.next, so this line would set the new head (this.head) to null.
+        
+        // If we still have a head at this point - make sure to reset it's prev pointer
+        if (this.head) this.head.prev = null;      
+        
+        // If we removed the last node - make sure the tail is removed as well.
+        if (!this.head) this.tail = null;
+        
+        this.length--;
 
-    //     if (!this.head) {
-    //         this.tail = null ;
-    //     }
-    //     return oldHead
-    // }
+        // Before returning old head - server any connections to other nodes.
+        oldHead.next = null;
+        return oldHead
+    }
     // unshift(val) { // Add new node to beginning (get new head - point it to old head) 
     //     const newNode = new Node(val);
     //     if (!this.head) {
@@ -179,14 +189,18 @@ list.push("first");
 list.push("second");
 list.push("third");
 console.log(list);
-list.pop()
-console.log("POPPED",list);
-list.pop()
-console.log("POPPED",list);
-list.pop()
-console.log("POPPED",list);
-list.pop()
-console.log("POPPED",list);
+list.shift()
+console.log("SHIFTED",list);
+list.shift()
+console.log("SHIFTED",list);
+list.shift()
+console.log("SHIFTED",list);
+// list.pop()
+// console.log("POPPED",list);
+// list.pop()
+// console.log("POPPED",list);
+// list.pop()
+// console.log("POPPED",list);
 // list.reverse();
 // list.print()
 
