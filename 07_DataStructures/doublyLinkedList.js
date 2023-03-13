@@ -79,10 +79,10 @@ class DoublyLinkedList {
     unshift(val) { // Add new node to beginning (get new head - point it to old head) 
 
         const newNode = new Node(val);
-
-        if (!this.head) {
+        // If list is already empty
+        if (this.length === 0) {
             this.head = newNode;
-            this.tail = this.head;
+            this.tail = newNode;
         }
         else {
             // Old head 'prev' (2nd item now) to point to new head
@@ -197,12 +197,15 @@ list.push("first");
 list.push("second");
 list.push("third");
 console.log(list);
+list.unshift("zero!");
+console.log(list);
 list.shift()
-console.log("SHIFTED",list);
-list.shift()
-console.log("SHIFTED",list);
-list.shift()
-console.log("SHIFTED",list);
+console.log(list);
+// console.log("SHIFTED",list);
+// list.shift()
+// console.log("SHIFTED",list);
+// list.shift()
+// console.log("SHIFTED",list);
 // list.pop()
 // console.log("POPPED",list);
 // list.pop()
