@@ -127,14 +127,14 @@ class DoublyLinkedList {
         }
 
     }
-    // set(index, val) { 
-    //     const foundNode = this.get(index);
-    //     if (foundNode) { 
-    //         foundNode.val = val;
-    //         return true;
-    //     }
-    //     return false;
-    // }
+    set(index, val) { 
+        const foundNode = this.get(index);
+        if (foundNode != null) { 
+            foundNode.val = val;
+            return true;
+        }
+        return false;
+    }
     // insert(index, val) { 
     //     if (index < 0 || index > this.length) return false;
     //     if (index === this.length) return !!this.push(val);
@@ -216,15 +216,18 @@ const list = new DoublyLinkedList();
 list.push("first");
 list.push("second");
 list.push("third");
-list.push("fourth");
-list.push("fifth");
-list.push("sixth");
 console.log(list);
+list.set(1,'newsecond')
+console.log(list);
+// list.push("fourth");
+// list.push("fifth");
+// list.push("sixth");
+// console.log(list);
 
-console.log(`GETTING: 1 | ${list.get(1)}`);
-console.log(`GETTING: 5 | ${list.get(5)}`);
-console.log(`GETTING: 6 | ${list.get(6)}`);
-console.log(`GETTING: 2 | ${list.get(2)}`);
+// console.log(`GETTING: 1 | ${list.get(1)}`);
+// console.log(`GETTING: 5 | ${list.get(5)}`);
+// console.log(`GETTING: 6 | ${list.get(6)}`);
+// console.log(`GETTING: 2 | ${list.get(2)}`);
 
 // list.unshift("zero!");
 // console.log(list);
