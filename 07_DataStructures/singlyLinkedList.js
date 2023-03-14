@@ -138,9 +138,9 @@ class SinglyLinkedList {
         const prevNode = this.get(index - 1);
         const nextNode = this.get(index + 1);
          
-        prevNode.next = foundNode.next;
+        prevNode.next = nextNode;
         this.length--;
-        return this.foundNode;
+        return foundNode;
 
     }
     reverse() {

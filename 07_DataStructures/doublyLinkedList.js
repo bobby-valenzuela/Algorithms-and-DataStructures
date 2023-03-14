@@ -172,27 +172,28 @@ class DoublyLinkedList {
         return true;
         
     }
-    // // Remove by index
-    // remove(index) { 
-    //     if (index < 0 || index >= this.length) return undefined;
-        
-    //     // Removing first node
-    //     if (index === 0) return this.shift();
-        
-    //     // Removing last node
-    //     console.log(this.length)
-    //     if (index === (this.length - 1)) console.log("Continuing...");
-    //     if (index === this.length - 1) return this.pop();
+    // Remove by index
+    remove(index) { 
 
-    //     const foundNode = this.get(index);
-    //     const prevNode = this.get(index - 1);
-    //     const nextNode = this.get(index + 1);
+        if (index < 0 || index >= this.length) return undefined;
+        
+        // Removing first node - just shift
+        if (index === 0) return this.shift();
+        
+        // Removing last node - just pop
+        if (index === this.length - 1) return this.pop();
+
+        // Removing some node non-leading/trailing node...
+        const foundNode = this.get(index);
+        const prevNode = this.get(index - 1);
+        const nextNode = this.get(index + 1);
          
-    //     prevNode.next = foundNode.next;
-    //     this.length--;
-    //     return this.foundNode;
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+        this.length--;
+        return foundNode;
 
-    // }
+    }
     // reverse() {
     //     // Swap head and tail
     //     [this.tail, this.head] = [this.head, this.tail];
@@ -239,7 +240,7 @@ list.push("first");
 list.push("second");
 list.push("third");
 // console.log(list);
-list.insert(1,'newsecond')
+list.remove(1)
 console.log(list);
 console.log(list.get(0));
 console.log(list.get(1));
