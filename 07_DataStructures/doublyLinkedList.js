@@ -95,18 +95,38 @@ class DoublyLinkedList {
         this.length++;
         return this;
     }
-    // get(index) { 
-    //     index = parseInt(index);
-    //     if (index < 0 || index >= this.length) return null;
-    //     let counter = 0;
-    //     let current = this.head;
-    //     while (counter !== index) {
-    //         current = current.next;
-    //         counter++;
-    //     }
-    //     return current;
+    get(index) { 
+        index = parseInt(index);
+        if (index < 0 || index >= this.length) return null;
+        
+        // See if we should at begin/end depending on the index given
+        if (index <= Math.floor(this.length / 2)) {
+            console.log("WORKING FROM START");
+            let counter = 0;
+            let current = this.head;
+    
+            while (counter !== index) {
+                current = current.next;
+                counter++;
+            }
+            return current;
 
-    // }
+        }
+        else { 
+            
+            console.log("WORKING FROM END");
+            let counter = this.length - 1;
+            let current = this.tail;
+    
+            while (counter !== index) {
+                current = current.prev;
+                counter--;
+            }
+            return current;
+
+        }
+
+    }
     // set(index, val) { 
     //     const foundNode = this.get(index);
     //     if (foundNode) { 
@@ -196,11 +216,20 @@ const list = new DoublyLinkedList();
 list.push("first");
 list.push("second");
 list.push("third");
+list.push("fourth");
+list.push("fifth");
+list.push("sixth");
 console.log(list);
-list.unshift("zero!");
-console.log(list);
-list.shift()
-console.log(list);
+
+console.log(`GETTING: 1 | ${list.get(1)}`);
+console.log(`GETTING: 5 | ${list.get(5)}`);
+console.log(`GETTING: 6 | ${list.get(6)}`);
+console.log(`GETTING: 2 | ${list.get(2)}`);
+
+// list.unshift("zero!");
+// console.log(list);
+// list.shift()
+// console.log(list);
 // console.log("SHIFTED",list);
 // list.shift()
 // console.log("SHIFTED",list);
