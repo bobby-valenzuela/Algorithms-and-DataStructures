@@ -140,6 +140,9 @@ class SinglyLinkedList {
          
         prevNode.next = nextNode;
         this.length--;
+
+        // before returning the removed node - clear any prev properties
+        delete foundNode.prev;
         return foundNode;
 
     }
@@ -175,7 +178,7 @@ class SinglyLinkedList {
         let current = this.head;
 
         while (current) { 
-            arr.push(current.valxx``);
+            arr.push(current.val);
             current = current.next;
         }
         console.log(arr);

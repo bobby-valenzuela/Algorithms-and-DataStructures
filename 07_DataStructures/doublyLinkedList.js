@@ -191,46 +191,31 @@ class DoublyLinkedList {
         prevNode.next = nextNode;
         nextNode.prev = prevNode;
         this.length--;
+        
+        // before returning the removed node - clear any next/prev properties
+        delete foundNode.prev;
+        delete foundNode.next;
         return foundNode;
 
     }
-    // reverse() {
-    //     // Swap head and tail
-    //     [this.tail, this.head] = [this.head, this.tail];
-        
-    //     let current = this.tail;
-    //     let prev = null;
+    traverse() { 
+        let current = this.head;
+        while (current) { 
+            console.log(current.val);
+            current = current.next;
+        }
+    }
+    // just a utility method to debug - visualize values in the list 
+    print() { 
+        const arr = [];
+        let current = this.head;
 
-    //     while (current) { 
-            
-    //         // Save the next
-    //         const next = current.next;
-
-    //         // Update next to point at the previous one
-    //         current.next = prev;
-    //         prev = current;
-    //         current = next;
-
-    //     }
-
-
-    // }
-    // traverse() { 
-    //     let current = this.head;
-    //     while (current) { 
-    //         current = current.next;
-    //     }
-    // }
-    // print() { 
-    //     const arr = [];
-    //     let current = this.head;
-
-    //     while (current) { 
-    //         arr.push(current.valxx``);
-    //         current = current.next;
-    //     }
-    //     console.log(arr);
-    // }
+        while (current) { 
+            arr.push(current.val);
+            current = current.next;
+        }
+        console.log(arr);
+    }
 }
 
 
@@ -239,68 +224,6 @@ const list = new DoublyLinkedList();
 list.push("first");
 list.push("second");
 list.push("third");
-// console.log(list);
-list.remove(1)
-console.log(list);
-console.log(list.get(0));
-console.log(list.get(1));
-console.log(list.get(2));
-console.log(list.get(3));
-// list.push("fourth");
-// list.push("fifth");
-// list.push("sixth");
-// console.log(list);
-
-// console.log(`GETTING: 1 | ${list.get(1)}`);
-// console.log(`GETTING: 5 | ${list.get(5)}`);
-// console.log(`GETTING: 6 | ${list.get(6)}`);
-// console.log(`GETTING: 2 | ${list.get(2)}`);
-
-// list.unshift("zero!");
-// console.log(list);
-// list.shift()
-// console.log(list);
-// console.log("SHIFTED",list);
-// list.shift()
-// console.log("SHIFTED",list);
-// list.shift()
-// console.log("SHIFTED",list);
-// list.pop()
-// console.log("POPPED",list);
-// list.pop()
-// console.log("POPPED",list);
-// list.pop()
-// console.log("POPPED",list);
-// list.reverse();
-// list.print()
-
-// list.remove(0);
-// list.remove(1);
-// console.log(list);
-
-// console.log(list);
-// console.log("about to pop\n")
-// console.log(list.pop());
-// console.log(list);
-// console.log("about to pop\n")
-// console.log(list.pop());
-// console.log(list);
-// console.log("about to pop\n")
-// console.log(list.pop());
-// console.log(list);
-// console.log("\n\nabout to pop!!!\n")
-// console.log(list.pop());
-// console.log(list);
-// list.push("first");
-// console.log(list);
-// list.push("second");
-// console.log(list);
-// list.unshift("newfirst");
-// console.log(list);
-
+list.print();
 // list.traverse();
-
-// SinglyLinkedList {
-//     head: Node { val: 'first', next: Node { val: 'second', next: [Node] } },
-//     tail: Node { val: 'third', next: null },
-//     length: 3
+// console.log(list);
