@@ -101,7 +101,7 @@ class DoublyLinkedList {
         
         // See if we should at begin/end depending on the index given
         if (index <= Math.floor(this.length / 2)) {
-            console.log("WORKING FROM START");
+            // console.log("WORKING FROM START");
             let counter = 0;
             let current = this.head;
     
@@ -114,7 +114,7 @@ class DoublyLinkedList {
         }
         else { 
             
-            console.log("WORKING FROM END");
+            // console.log("WORKING FROM END");
             let counter = this.length - 1;
             let current = this.tail;
     
@@ -135,21 +135,43 @@ class DoublyLinkedList {
         }
         return false;
     }
-    // insert(index, val) { 
-    //     if (index < 0 || index > this.length) return false;
-    //     if (index === this.length) return !!this.push(val);
-    //     if (index === 0) return !!this.unshift(val);
+    insert(index, val) {
+
+        // if the index is out of bounds - don't proceed
+        if (index < 0 || index > this.length) return false;
+        // If we're just appending - use push method
+        if (index === this.length) return !!this.push(val);
+        // if prepending, use unshift
+        if (index === 0) return !!this.unshift(val);
         
-    //     const newNode = new Node(val);
-    //     const prevNode = this.get(index - 1);
-    //     const nextNode = this.get(index + 1);
+        // if inserting in between two existing values...
+
+        // Create new node
+        const newNode = new Node(val);
+
+        // Get adjacent nodes
+        const beforeNode = this.get(index - 1);
+        const afterNode = this.get(index);
+
+        // Point beforeNode 'next' to new node
+        beforeNode.next = newNode;
         
-    //     prevNode.next = newNode;
-    //     newNode.next = nextNode;
-    //     this.length++;
-    //     return true;
+        // Point afterNode 'prev' to new node
+        afterNode.prev = newNode;
+
+
+        ///// Now handle new node stuff...
+
+        // point new node 'prev' back to beforeNode
+        newNode.prev = beforeNode;
+        // point new node 'next' to next node
+        newNode.next = afterNode;
         
-    // }
+
+        this.length++;
+        return true;
+        
+    }
     // // Remove by index
     // remove(index) { 
     //     if (index < 0 || index >= this.length) return undefined;
@@ -216,9 +238,13 @@ const list = new DoublyLinkedList();
 list.push("first");
 list.push("second");
 list.push("third");
+// console.log(list);
+list.insert(1,'newsecond')
 console.log(list);
-list.set(1,'newsecond')
-console.log(list);
+console.log(list.get(0));
+console.log(list.get(1));
+console.log(list.get(2));
+console.log(list.get(3));
 // list.push("fourth");
 // list.push("fifth");
 // list.push("sixth");
