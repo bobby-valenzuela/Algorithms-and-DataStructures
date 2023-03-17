@@ -1,9 +1,14 @@
 /* 
+Stacks: LIFO Data Structure
+
 This stack will be linked-list-based (as opposed to an array-based implementation).
 A stack CAN be created using the pop/push method of an array or the shift/unshit methods.
 Pop/push is preferred as using the shift/unshift methods requires to re-calulate all the indexes.
 
 Linked lists are preferred over arrays to make a staack as Linked lists don't carry the extra baggae of indexes that arrays do.
+
+Note: One ways stacks benefit over linked lists is that insertion/deletion time is O(1) constant time - whereas a linked list is O(n) as the list needs to be traversed to find the item to remove/insert.
+Note: Stacks also benefit over arrays as they use less space since there's no index.
 
 */
 
