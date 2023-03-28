@@ -1,4 +1,5 @@
-// Adding to the tail and removing from the head here (this method is geared towards optimizing inserts instead of removals,though we could do inversley if we wanted better support for removals)
+// Queue: FIFO Data Structure
+// Here we are adding to the tail and removing from the head here (this method is geared towards optimizing inserts instead of removals,though we could do inversley if we wanted better support for removals)
 
 class Queue { 
     constructor() {
@@ -45,7 +46,9 @@ class Node{
 /*
 === Note on Array-Based Queues ===
 
-Though easy to implement, they aren't are ideal because they can only be created on of two ways:
+Though easy to implement, they aren't are ideal because they uses indexes which slow them down and use more space (both time and space complexity suffers)
+
+Array-based queues can only be created on of two ways:
 
 1. Using unshift (insert)and pop (to remove): Which is more intensive it comes to inserting, as the whole list needs to be re-indexed when inserting (since we're inserting at the start).
 2. Using shift (to remove) and push (to insert): Which is more intensive it comes to removing, as the whole list needs to be re-indexed when removing (since we're removing from the start).
