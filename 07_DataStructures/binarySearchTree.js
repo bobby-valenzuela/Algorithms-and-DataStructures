@@ -4,6 +4,9 @@ class BinarySearchTree {
     }
 
     insert(value) { 
+
+        if (isNaN(value) && isNaN(parseFloat(value)) ) return null;
+        
         const newNode = new Node(value);
 
         if (!this.root) {
@@ -15,6 +18,8 @@ class BinarySearchTree {
 
             let current = this.root;
 
+            value = parseFloat(value);
+            
             if (value === current.value) return undefined;
 
             while (true) { 
@@ -58,7 +63,14 @@ class Node {
     }
 }
 
-// const tree = new BinarySearchTree();
+const tree = new BinarySearchTree();
+tree.insert(20);
+tree.insert(30);
+tree.insert(10);
+tree.insert(7);
+tree.insert(13);
+
+
 // tree.root = new Node(10);
 // tree.left = new Node(7);
 // tree.right = new Node(15);
