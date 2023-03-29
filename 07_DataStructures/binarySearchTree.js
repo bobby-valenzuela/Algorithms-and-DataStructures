@@ -5,7 +5,7 @@ class BinarySearchTree {
 
     insert(value) { 
 
-        if (isNaN(value) && isNaN(parseFloat(value)) ) return null;
+        if (isNaN(value) ) return null;
         
         const newNode = new Node(value);
 
@@ -19,7 +19,8 @@ class BinarySearchTree {
             let current = this.root;
 
             value = parseFloat(value);
-            
+
+            // Don't insert dups
             if (value === current.value) return undefined;
 
             while (true) { 
@@ -29,9 +30,8 @@ class BinarySearchTree {
                         current.left = newNode;
                         return this;
                     }
-                    else { 
-                        current = current.left;
-                    }
+
+                    current = current.left;
                 }
                 
                 if (value > current.value) { 
@@ -40,13 +40,34 @@ class BinarySearchTree {
                         current.right = newNode;
                         return this;
                     }
-                    else { 
-                        current = current.right;
-                    }
+
+                    current = current.right;
 
                 }
                 
 
+            }
+
+        }
+
+    }
+
+    find(value) { 
+
+        let foundValue = false;
+        let current = this.root; // Starting searching at root
+
+        while (!foundValue) { 
+            // If no such node exists - then we failed to find value
+            if (!current) return undefined;
+
+            if (current.value === value) return foundValue = true && current;
+            
+            if (value < current.value) {
+                current = current.left;
+            }
+            else if(value > current.value) { 
+                current = current.right;
             }
 
         }
