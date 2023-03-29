@@ -54,14 +54,13 @@ class BinarySearchTree {
 
     find(value) { 
 
-        let foundValue = false;
-        let current = this.root; // Starting searching at root
+        let foundValue = false, current = this.root; // Starting searching at root
 
         while (!foundValue) { 
-            // If no such node exists - then we failed to find value
+            // [RETURN] If no such node exists - then we failed to find value
             if (!current) return undefined;
 
-            // If we found what we're looking for - break
+            // [RETURN] If we found what we're looking for - break
             if (current.value === value) return foundValue = true && current;
             
             // Othwerwise, keep traversing tree until we find it or no node exists
@@ -74,6 +73,10 @@ class BinarySearchTree {
 
         }
 
+    }
+
+    contains(value) { 
+        return !!this.find(value);
     }
 
     // Returns parent and child placement
@@ -126,12 +129,12 @@ class BinarySearchTree {
 }
 
 class Node { 
+    // Using left/right for readability - though it would be more verbose to write as leftChild and rightChild
     constructor(value) { 
         this.value = value;
         this.left = null;
         this.right = null;
     }
-    // Using left/right for readability - though it would be more verbose to write as leftChild and rightChild
 }
 
 const tree = new BinarySearchTree();
