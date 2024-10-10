@@ -1,45 +1,76 @@
+// Explanation of Each Step:
+// 1. swap function: Swaps two elements in the array. It takes the array and the indices of the two elements that need to be swapped.
+// 2. Outer loop (for (let i = arr.length; i > 0; i--)):
+//      This loop runs from the end of the array to the beginning. Each time it loops, the largest unsorted element moves to its correct spot on the right.
+//      With each iteration, fewer comparisons are needed because the largest values have already been sorted to the end.
+// 3. Inner loop (for (let j = 0; j < i-1; j++)):
+//      This loop goes through the array from left to right, comparing each pair of elements.
+//      If the current element (arr[j]) is bigger than the next one (arr[j+1]), we swap them to move the larger one to the right.
+// 4. Swapping elements (if (arr[j] > arr[j+1])):
+//      If two elements are out of order (the left one is bigger than the right one), we call the swap function to correct their positions.
+// 5. Result: After the loops finish, the array is fully sorted, and we return the sorted array.
+
+
+
+
+
+
+
+// This function swaps two elements in the array.
+// It takes the array and the two positions (idx1 and idx2) to swap.
 function swap (arr, idx1, idx2){
-    let temp = arr[idx1]
-    arr[idx1] = arr[idx2]
-    arr[idx2] = temp
-    return arr
+    // Store the value of the first element in a temporary variable.
+    let temp = arr[idx1];
+    // Move the value of the second element into the first position.
+    arr[idx1] = arr[idx2];
+    // Move the stored temporary value into the second position.
+    arr[idx2] = temp;
+    
+    // Return the updated array after the swap.
+    return arr;
 }
 
-// const result = swap( [2,3,4,5],1,2 )
-// console.log(result)
-
-function bubbleSort(arr){
-    // Go through each element once
-    // With each iteration the the highest value will "bubble to the top" i.e. the rightmost pair(s) will be sorted
-        // Going in reverse allows us to use 'i' to represent a decrementing value (decreasing the number of swaps to do)
-        // meaning, which each iteration we don't have to try and compare the rightmost pair(s) as they should be sorted (we keep comparing each one less right-most pair on each iteration).
-
-    for (let i=arr.length; i > 0; i-- ){ // <-- This is still one iteration per element in the array - we just using
+// This is the Bubble Sort function that will sort an array.
+function bubbleSort(arr) {
+    // Outer loop: It runs from the end of the array to the beginning.
+    // We do this because each pass will sort one element at the end of the array.
+    for (let i = arr.length; i > 0; i--) {
+        // Print statement to show how many swaps we're about to try on this pass.
+        console.log(`OuterLoopIteration: ${i} | Performing ${i-1} swaps`);
         
-        console.log(`OuterLoopIteration: ${i} | Performing ${i-1} swaps`)
-        
-        for ( let j=0; j < i-1; j++ ){
-    
+        // Inner loop: This goes through the array, comparing each pair of elements.
+        // We stop at (i-1) because the largest elements "bubble" to the right, 
+        // so we don't need to compare them again.
+        for (let j = 0; j < i - 1; j++) {
+            // Print the current inner loop position.
             process.stdout.write(`\tInnerLoopIteration: ${j}`);
             
-            if ( arr[j] > arr[j+1] ) {
-                console.log(` => Swapping: ${arr[j]},${arr[j+1]}`)
-                arr = swap(arr,j,j+1)
-            }else{ console.log("") } // can remove this else - only used for printing output
-    
+            // If the current element is bigger than the next one,
+            // we need to swap them so the bigger one moves right.
+            if (arr[j] > arr[j+1]) {
+                console.log(` => Swapping: ${arr[j]},${arr[j+1]}`);
+                // Swap the two elements that are out of order.
+                arr = swap(arr, j, j+1);
+            } else {
+                // This else is only here for printing purposes and can be removed.
+                console.log("");
+            }
         }
-    
-    
     }
-    return arr
-
+    // After all the passes, the array is sorted, so return it.
+    return arr;
 }
 
-// const myarr = [2,5,8,1,9]
-const myarr = [9,8,7,1,2]
+// Sample array to sort.
+const myarr = [9, 8, 7, 1, 2];
 
-console.log(myarr)
-console.log(bubbleSort(myarr))
+// Print the unsorted array.
+console.log(myarr);
+
+// Sort the array using bubbleSort and print the sorted result.
+console.log(bubbleSort(myarr));
+
+
 
 // === OUTPUT ===
 

@@ -1,148 +1,187 @@
 class BinarySearchTree { 
     constructor() { 
+        // The tree starts empty, so the root is set to null.
         this.root = null;
     }
 
+    // Method to insert a new value into the tree.
     insert(value) { 
 
-        if (isNaN(value) ) return null;
+        // If the value is not a number, exit the function.
+        if (isNaN(value)) return null;
         
+        // Create a new node for the value.
         const newNode = new Node(value);
 
+        // If the tree is empty (no root), set this new node as the root.
         if (!this.root) {
             this.root = newNode;
             return this;
-        }
+        } else { 
 
-        else { 
-
+            // Start comparing from the root.
             let current = this.root;
 
+            // Make sure value is a number (in case it was a string that could be a number).
             value = parseFloat(value);
 
-            // Don't insert dups
+            // If the value is the same as the current node, do not insert duplicates.
             if (value === current.value) return undefined;
 
+            // Keep looping to find the correct spot for the new value.
             while (true) { 
 
+                // If the value is less than the current node's value, go left.
                 if (value < current.value) { 
+                    // If the left child is empty, insert the new node here.
                     if (current.left === null) {
                         current.left = newNode;
                         return this;
                     }
 
+                    // Otherwise, move left to the next node so the next loop iteration will try the next node to the left.
                     current = current.left;
                 }
-                
+
+                // If the value is greater than the current node's value, go right.
                 if (value > current.value) { 
-                    
+                    // If the right child is empty, insert the new node here.
                     if (current.right === null) {
                         current.right = newNode;
                         return this;
                     }
 
+                    // Otherwise, move right to the next node so the next loop iteration will try the next node to the right.
                     current = current.right;
-
                 }
-                
-
             }
-
         }
-
     }
 
+    // Method to search for a value in the tree.
     find(value) { 
+        // Start at the root of the tree.
+        let foundValue = false, current = this.root;
 
-        let foundValue = false, current = this.root; // Starting searching at root
-
+        // Loop until the value is found or the search fails.
         while (!foundValue) { 
-            // [RETURN] If no such node exists - then we failed to find value
+            // If we reach a null node, the value doesn't exist in the tree.
             if (!current) return undefined;
 
-            // [RETURN] If we found what we're looking for - break
+            // If the current node holds the value we're looking for, return it.
             if (current.value === value) return foundValue = true && current;
-            
-            // Othwerwise, keep traversing tree until we find it or no node exists
+
+            // If the value is less than the current node's value, go left.
             if (value < current.value) {
                 current = current.left;
-            }
-            else if(value > current.value) { 
+            } 
+            // If the value is greater than the current node's value, go right.
+            else if (value > current.value) { 
                 current = current.right;
             }
-
         }
-
     }
 
+    // Method to check if a value exists in the tree.
     contains(value) { 
+        // The 'find' method checks if the value is present. If it is, return true.
         return !!this.find(value);
     }
 
-    // Returns parent and child placement
+    // Method to find the parent of a node and whether the node is a left or right child.
     findParent(value) { 
 
         let foundValue = false;
-        let current = this.root; // Starting searching at root
-        let previous = null;    // Save prev node so that if we find current - we know the pre is the parent
-        let placement = null;   // Is node right/left of parent?
+        let current = this.root; // Start at the root of the tree.
+        let previous = null;    // Keep track of the previous node (the parent).
+        let placement = null;   // Is the node a left or right child of its parent?
 
+        // Loop until we find the node or determine it doesn't exist.
         while (!foundValue) { 
-            // If no such node exists - then we failed to find value
+            // If we reach a null node, the value doesn't exist in the tree.
             if (!current) return undefined;
 
-            // If we found what we're looking for - break
+            // If the current node holds the value we're looking for, stop searching.
             if (current.value === value) {
                 foundValue = true;
                 break;
             }
 
-            // Othwerwise, keep traversing tree until we find it or no node exists
+            // If the value is less than the current node's value, go left.
             if (value < current.value) {
                 previous = current;
                 current = current.left;
                 placement = 'left';
             }
-            else if(value > current.value) { 
+            // If the value is greater than the current node's value, go right.
+            else if (value > current.value) { 
                 previous = current;
                 current = current.right;
                 placement = 'right';
             }
-
         }
 
-        return [previous,placement];
-
+        // Return the parent node and whether the value is a left or right child.
+        return [previous, placement];
     }
 
-    // Find node - remove it from parent node, basically cut this branch (or leaf if it's a barren node)
+    // Method to remove a node from the tree.
     remove(value) { 
-        // Save removed node ti return later
+        // Find the node we want to remove.
         const foundNode = this.find(value);
         if (!foundNode) return undefined;
 
+        // Find the parent of the node we want to remove and which side it's on.
         const [parent, side] = this.findParent(value);
+
+        // Set the parent's left or right pointer to null, effectively "cutting off" the node.
         parent[side] = null;
+
+        // Return the removed node.
         return foundNode;
     }
-
 }
 
+// This class represents a node in the tree.
 class Node { 
-    // Using left/right for readability - though it would be more verbose to write as leftChild and rightChild
     constructor(value) { 
-        this.value = value;
-        this.left = null;
-        this.right = null;
+        this.value = value;  // The value the node holds.
+        this.left = null;    // Left child starts as null.
+        this.right = null;   // Right child starts as null.
     }
 }
 
+// Create a new binary search tree.
 const tree = new BinarySearchTree();
-tree.insert(20);
+tree.insert(20);   // Insert values into the tree.
 tree.insert(30);
 tree.insert(10);
 tree.insert(7);
 tree.insert(13);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // tree.root = new Node(10);
