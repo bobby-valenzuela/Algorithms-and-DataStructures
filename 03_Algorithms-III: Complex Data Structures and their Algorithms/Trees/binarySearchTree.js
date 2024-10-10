@@ -1,3 +1,4 @@
+// Binary search tree - each node can have (at most) a left and right node.
 class BinarySearchTree { 
     constructor() { 
         // The tree starts empty, so the root is set to null.
