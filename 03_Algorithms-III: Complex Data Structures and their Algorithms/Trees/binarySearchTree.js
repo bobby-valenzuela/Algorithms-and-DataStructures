@@ -1,4 +1,5 @@
-// Binary search tree - each node can have (at most) a left and right node.
+// A Binary tree is a type of tree where each node can have a left and right node.
+// A Binary search tree is a type of binary tree that is ordered - thus searchable by comparing values of various nodes
 class BinarySearchTree { 
     constructor() { 
         // The tree starts empty, so the root is set to null.
@@ -141,6 +142,34 @@ class BinarySearchTree {
         // Return the removed node.
         return foundNode;
     }
+
+    // Breadth First Search (BFS)
+    BFS(){
+
+        const queue = [], data = [];
+        let node = this.root;
+
+        // Set the first node we know of (root) as the first thing to check in the queue
+        queue.push(node);
+
+        // As long as there are items in the queue iterate and add to data var and check for left/right to also add to the queue to be checked next
+        while(queue.length){
+
+            // Remove this from queue
+            node = queue.shift();
+            
+            // Add to data (just pushing value - but could just push nodes as well)
+            data.push(node.value);
+
+            // Check left/right
+            if(node.left) queue.push(node.left);
+            if(node.right) queue.push(node.right);
+
+        }
+        
+        return data;
+
+    }
 }
 
 // This class represents a node in the tree.
@@ -160,7 +189,8 @@ tree.insert(10);
 tree.insert(7);
 tree.insert(13);
 
-
+console.log(tree)
+console.log(tree.BFS())
 
 
 
