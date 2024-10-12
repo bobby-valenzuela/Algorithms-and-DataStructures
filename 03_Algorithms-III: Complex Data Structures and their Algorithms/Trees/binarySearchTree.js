@@ -61,7 +61,7 @@ class BinarySearchTree {
     }
 
     // Method to search for a value in the tree.
-    find(value) { 
+    find(value) {
         // Start at the root of the tree.
         let foundValue = false, current = this.root;
 
@@ -143,7 +143,7 @@ class BinarySearchTree {
         return foundNode;
     }
 
-    // Breadth First Search (BFS)
+    // Breadth First Search (BFS) | Collects all nodes in an array and returns them
     BFS(){
 
         const queue = [], data = [];
@@ -170,6 +170,73 @@ class BinarySearchTree {
         return data;
 
     }
+
+    // Depth-First Search - PreOrder Style
+    DFSPreOrder(){
+
+        const data = [];
+
+        function traverse(node){
+
+            data.push(node.value);
+            
+            // Call recusively - don't need a base cas since we're only calling traverse() 
+            // if we find a node on either side and we will eventually reach the last node.
+            if(node.left) traverse(node.left);
+            if(node.right) traverse(node.right);
+
+        }
+
+        traverse(this.root);
+
+        return data;
+
+    }
+
+    // Depth-First Search - PostOrder Style (traverse all node before saving them into array to return)
+    // Ideal if you want to traverse nodes in the same order they appear in the tree (great for reconstruction the tree again later - first item is root)
+    DFSPostOrder(){
+
+        const data = [];
+
+        function traverse(node){
+
+            if(node.left) traverse(node.left);
+            if(node.right) traverse(node.right);
+
+            data.push(node.value);
+
+        }
+
+        traverse(this.root);
+
+        return data;
+
+    }
+
+    // Depth-First Search - InOrder Style (traverses all nodes in order)
+    // Ideal if you need to travserse node in order by value
+    DFSInOrder(){
+
+        const data = [];
+
+        function traverse(node){
+
+            if(node.left) traverse(node.left);
+            
+            data.push(node.value);
+            
+            if(node.right) traverse(node.right);
+
+        }
+
+        traverse(this.root);
+
+        return data;
+
+    }
+
+
 }
 
 // This class represents a node in the tree.
@@ -183,19 +250,25 @@ class Node {
 
 // Create a new binary search tree.
 const tree = new BinarySearchTree();
-tree.insert(20);   // Insert values into the tree.
-tree.insert(30);
-tree.insert(10);
-tree.insert(7);
-tree.insert(13);
+tree.insert(10);   // Insert values into the tree.
+tree.insert(6);
+tree.insert(15);
+tree.insert(3);
+tree.insert(8);
+tree.insert(20);
 
-console.log(tree)
-console.log(tree.BFS())
+console.log("Tree: ", tree)
+console.log("BFS:", tree.BFS())
+console.log("DFS (preorder)", tree.DFSPreOrder())
+console.log("DFS (postorder)", tree.DFSPostOrder())
+console.log("DFS (inorder)", tree.DFSInOrder())
 
 
 
 
-
+// Note on BFS vs DFS:
+// BFS is ideal for narrow trees (we're working sideways so a very wide tree could be slow to traverse)
+// DFS is ideal for short trees  (we're working vertically so a very tall tree could be slow to traverse)
 
 
 
