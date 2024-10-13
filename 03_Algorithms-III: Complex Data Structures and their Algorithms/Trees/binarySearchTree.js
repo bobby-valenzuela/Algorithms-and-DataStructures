@@ -31,7 +31,8 @@ class BinarySearchTree {
             if (value === current.value) return undefined;
 
             // Keep looping to find the correct spot for the new value.
-            while (true) { 
+            while (true) {
+                // This is what makes this Binary Tree and Binart SEARCH tree - we're trying to keep values ordered.
 
                 // If the value is less than the current node's value, go left.
                 if (value < current.value) { 
