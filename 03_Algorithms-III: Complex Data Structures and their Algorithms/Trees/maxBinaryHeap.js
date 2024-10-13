@@ -47,29 +47,29 @@ class maxBinaryHeap{
         return maxToExtract;
 
     }
-
+    // Start from top (largest index) and make sure children are smaller
     bubbleDown(){
 
         const idxIsInBounds = i => i >= 0 && i < this.values.length;
         const valueIsGreater = (idx, idx2) => idxIsInBounds(idx) && this.values[idx] > this.values[idx2];
-        const getChildIndex = lr => lr === 'l' ? (currentIdx * 2 ) + 1 : (currentIdx * 2 ) + 2;
 
-        // Swap last value and move to begining
-        const end = this.values.pop();
-        this.values.splice(0,1, end );
+        let currentIdx = 0;
 
-        let currentIdx = 0, leftChildIdx = getChildIndex('l'), rightChildIdx = getChildIndex('r');
-
-        // Indexes are in bounds and value there is greater than current
-        let leftChildIsGreater =  valueIsGreater(leftChildIdx, currentIdx);
-        let rightChildIsGreater = valueIsGreater(rightChildIdx, currentIdx);
-
-        // Compare current root with children
-        while( rightChildIsGreater || leftChildIsGreater){
+        while( true ){
             
-            if( currentIdx < 0 ) break;
+            // Swap last value and move to begining
+            const end = this.values.pop();
 
-            // console.log(`currentIdx: ${currentIdx} | val: ${this.values[currentIdx]} | leftChildIdx: ${leftChildIdx} (val: ${this.values[leftChildIdx]}) | rightChildIdx: ${rightChildIdx} (val: ${this.values[rightChildIdx]})`)
+            // Only push last element to the start if array isn't empty
+            if(this.values.length == 0) break;
+            this.values.splice(currentIdx,1, end );
+
+            let leftChildIdx = (currentIdx * 2) + 1, 
+                rightChildIdx = (currentIdx * 2) + 2;
+            let leftChildIsGreater =  valueIsGreater(leftChildIdx, currentIdx),
+                rightChildIsGreater = valueIsGreater(rightChildIdx, currentIdx);
+            
+            if( currentIdx > this.values.length || ! (rightChildIsGreater || leftChildIsGreater) )   break;
 
             // The root is not the larger than its children - save it so we can swap with a child
             const currentParent = this.values[currentIdx];
@@ -83,13 +83,8 @@ class maxBinaryHeap{
             // Move parent val in child
             this.values[childIdxToSwap] = currentParent;
 
-
-            // Update indexes
-            currentIdx = childIdxToSwap, leftChildIdx = getChildIndex('l'), rightChildIdx = (currentIdx * 2 ) + 2;
-            
-            leftChildIsGreater =  valueIsGreater(leftChildIdx, currentIdx);
-            rightChildIsGreater = valueIsGreater(rightChildIdx, currentIdx);
-        
+            // Update index
+            currentIdx = childIdxToSwap; 
 
         }
 
@@ -163,5 +158,15 @@ heap.insert(12);
 
 console.log( heap.insert(55) );
 
-console.log("EXTRACING...", heap.extractMax(), heap.values);
-console.log("EXTRACING...", heap.extractMax2(), heap.values);
+//console.log("EXTRACING...", heap.extractMax2(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
+console.log( heap.extractMax(), heap.values);
