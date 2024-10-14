@@ -1,26 +1,33 @@
-class minBinaryHeap{
+class priorityQueue{
 
     constructor(){
         this.values = [];
     }
     
-    insert(val){
+    enqueue(data){
 
-        this.values.push(val);
-        if(this.values.length > 1) this.bubbleUp(val);
+        const newNode = new Node( data );
+
+        this.values.push(newNode);
+
+        if(this.values.length > 1) this.bubbleUp();
 
         return this.values;
     }
 
-    // Once any value is inserted, bubble that value up the heap as needed to ensure parent is still larger than any child nodes
+    // Once any value is enqueueed, bubble that value up the heap as needed to ensure parent is still smaller than any child nodes
     bubbleUp(){
 
         let index = this.values.length - 1;
         let parentIndex = Math.floor( (index - 1) / 2);
 
-        // Keep checking if current node val is larger than its parent
-        while( this.values[index] < this.values[parentIndex] ){
+        console.log(this.values)
 
+        // Keep checking if current node val is greater than its parent
+        console.log(`[+] Inserted: idx (${index}) val (${this.values[index].priority}) | Parent: idx (${parentIndex}) val (${this.values[parentIndex].priority} )`)
+
+        while( parentIndex >= 0 && this.values[index].priority < this.values[parentIndex].priority ){
+            // console.log(`Inserted => index: ${index} | ${parentIndex}`)
             const current = this.values[index];
 
             // Swap (step 1) Put parent value in current one
@@ -32,14 +39,14 @@ class minBinaryHeap{
             // Update new current indexes
             index = parentIndex;                            // Next index to check should be new parent we just added
             parentIndex = Math.floor( (index - 1) / 2);     // Next parent to check should be parent of new parent to check
-
+            console.log(`Next Indexes: ${index} | ${parentIndex}`)
         }
     
     }
 
 
 
-    // Remove root and return it - also, update tree
+    // dequeue root and return it - also, update tree
     extractMin(){
 
         const minToExtract = this.values[0];
@@ -94,26 +101,32 @@ class minBinaryHeap{
 
 }
 
-const heap = new minBinaryHeap();
+class Node{
+    constructor(data){
+        this.value = data.value;
+        this.priority = data.priority;
+    }
+}
 
-heap.insert(41);
-heap.insert(39);
-heap.insert(33);
-heap.insert(18);
-heap.insert(27);
-heap.insert(12);
+const queue = new priorityQueue();
 
-console.log( heap.insert(55) );
+// Lower Priority value =  high prority
+queue.enqueue( { value: "Urgent Task", priority: 1 } );
+queue.enqueue( { value: "Semi-Urgent Task", priority: 5 } );
+queue.enqueue( { value: "Low-Pri Task", priority: 8 } );
+queue.enqueue( { value: "Non-Urgent Task", priority: 9 } );
+console.log(queue.enqueue( { value: "Urgent Task", priority: 10 } ));
+console.log(queue.enqueue( { value: "Some Task", priority: 2 } ));
 
-//console.log("EXTRACING...", heap.extractMin2(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
-console.log( heap.extractMin(), heap.values);
+queue.enqueue( { value: "Urgent Task B", priority: 2 } );
+console.log( queue.values);
+// console.log( queue.extractMin(), queue.values);
+// console.log( queue.extractMin(), queue.values);
+// console.log( queue.extractMin(), queue.values);
+// console.log( queue.extractMin(), queue.values);
+// console.log( queue.extractMin(), queue.values);
+// console.log( queue.extractMin(), queue.values);
+// console.log( queue.extractMin(), queue.values);
+// console.log( queue.extractMin(), queue.values);
+// console.log( queue.extractMin(), queue.values);
+// console.log( queue.extractMin(), queue.values);
