@@ -55,14 +55,15 @@ class maxBinaryHeap{
 
         let currentIdx = 0;
 
+        // Swap last value and move to begining
+        const end = this.values.pop();
+
+        // Only push last element to the start if array isn't empty
+        if(this.values.length > 0) this.values.splice(currentIdx,1, end );
+        
         while( true ){
             
-            // Swap last value and move to begining
-            const end = this.values.pop();
-
-            // Only push last element to the start if array isn't empty
             if(this.values.length == 0) break;
-            this.values.splice(currentIdx,1, end );
 
             let leftChildIdx = (currentIdx * 2) + 1, 
                 rightChildIdx = (currentIdx * 2) + 2;
