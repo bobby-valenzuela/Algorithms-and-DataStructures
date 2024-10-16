@@ -4,7 +4,8 @@ class Graph {
     constructor(){
         this.adjacencyList = {};
     }
-
+    
+    // ########## Adding/Removing Vertices/Edges
     addVertext(vertex){
         if( ! this.adjacencyList[vertex] ) this.adjacencyList[vertex] = [];
     }
@@ -48,6 +49,54 @@ class Graph {
         //Remove vertex itself from the list
         delete this.adjacencyList[vertex];
     }
+
+
+
+
+
+
+
+
+    // ########## Graph Traversal/Searching
+
+    // Depth-First Search (recursive)
+    depthFirstRescursive(startingVertex){
+
+        const result = [];
+        const visitedVertices = {};
+
+        const DFSTraverse = vertex => {
+            
+            // Base case
+            if( ! vertex ) return null;
+
+            // Mark as visited  
+            visitedVertices[vertex] = true;
+            result.push(vertex);
+
+            // Loop through all vertices
+            this.adjacencyList[vertex]
+                .forEach( neighbor => {
+
+                
+                    // Skip visited ones
+                    if(visitedVertices[neighbor]) return;
+
+                    DFSTraverse(neighbor)
+
+                });
+
+
+        }
+
+        DFSTraverse(startingVertex); 
+
+
+        return result;
+
+    }
+
+
 }
 
 // Create Graph
@@ -59,18 +108,25 @@ g.addVertext("B")
 g.addVertext("C")
 g.addVertext("D")
 g.addVertext("E")
+g.addVertext("F")
 
 // Adding Edges (vertex connections)
-g.addEdge("A", "C" );
 g.addEdge("A", "B" );
-g.addEdge("A", "E" );
+g.addEdge("A", "C" );
 g.addEdge("B", "D" );
-g.addEdge("B", "C" );
+g.addEdge("C", "E" );
+g.addEdge("D", "E" );
+g.addEdge("D", "F" );
+g.addEdge("E", "F" );
 
 
 // Removing an Edge (connection from two vertices)
-g.removeEdge("A", "C");
+// g.removeEdge("A", "C");
 
 
 // Removing a vertex
-g.removeVertex("B")
+// g.removeVertex("B")
+
+
+
+g.depthFirstRescursive("A");
