@@ -74,7 +74,7 @@ class Graph {
             visitedVertices[vertex] = true;
             result.push(vertex);
 
-            // Loop through all vertices
+            // Loop through all neighbor vertices of this vertex
             this.adjacencyList[vertex]
                 .forEach( neighbor => {
 
@@ -96,6 +96,40 @@ class Graph {
 
     }
 
+    depthFirstIterative(startingVertex){
+
+        const stack = [startingVertex];
+        const result = [];
+        const visited = {};
+
+        visited[startingVertex] = true;
+        let currentVertex;
+
+        while (stack.length){
+            //  Pop off next item on the stack to check
+            currentVertex = stack.pop();
+            
+            // Push iten  to result list
+            result.push(currentVertex);
+
+            // Loop through all neighbors of this vertex    
+            this.adjacencyList[currentVertex].forEach( neighbor => {
+                // Make sure we haven't visited this neighbor
+                if(! visited[neighbor]){
+
+                    visited[neighbor] = true;
+                    // Push to stack to be checked next
+                    stack.push(neighbor);
+
+                }
+
+            });
+
+        }
+
+        return result;
+
+    }
 
 }
 
@@ -120,6 +154,20 @@ g.addEdge("D", "F" );
 g.addEdge("E", "F" );
 
 
+// Diagram
+//        A
+//      /   \
+//     B     C
+//     |     |
+//     D --- E
+//     \     /
+//        F
+        
+
+
+
+
+
 // Removing an Edge (connection from two vertices)
 // g.removeEdge("A", "C");
 
@@ -128,5 +176,8 @@ g.addEdge("E", "F" );
 // g.removeVertex("B")
 
 
-
+// Traverse graph recursively
 g.depthFirstRescursive("A");
+
+// Traverse graph iteratively
+g.depthFirstIterative("A");
