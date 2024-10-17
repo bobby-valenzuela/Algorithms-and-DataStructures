@@ -60,7 +60,7 @@ class Graph {
     // ########## Graph Traversal/Searching
 
     // Depth-First Search (recursive)
-    depthFirstRescursive(startingVertex){
+    depthFirstTraversalRecursive(startingVertex){
 
         const result = [];
         const visitedVertices = {};
@@ -96,8 +96,9 @@ class Graph {
 
     }
 
-    depthFirstIterative(startingVertex){
+    depthFirstTraversalIterative(startingVertex){
 
+        // We need a stack (LIFO) - will use an array and pop/push methods to add to the end and remove from the end (Last-In-First-Out)
         const stack = [startingVertex];
         const result = [];
         const visited = {};
@@ -124,6 +125,46 @@ class Graph {
                 }
 
             });
+
+        }
+
+        return result;
+
+    }
+
+
+
+
+    breadthFirstTraversal(start){
+
+        // We need a queue (FIFO) - will use an array and shift/push methods (adding to end and removing from beginning | First-In-First-Out)
+        const queue = [start];
+        const result = [];
+        const visited = {};
+        let currentVertex;
+
+        visited[start] = true;
+
+        while(queue.length){
+            // Remove first element
+            currentVertex = queue.shift();
+
+
+            result.push(currentVertex);
+
+            // Add neightbors to queue (if not visited)
+            this.adjacencyList[currentVertex].forEach( neighbor=>{
+
+                if(!visited[neighbor]){
+
+                    visited[neighbor] = true;
+                    queue.push(neighbor);
+                }
+
+
+            })
+
+
 
         }
 
@@ -177,7 +218,10 @@ g.addEdge("E", "F" );
 
 
 // Traverse graph recursively
-g.depthFirstRescursive("A");
+g.depthFirstTraversalRecursive("A");
 
 // Traverse graph iteratively
-g.depthFirstIterative("A");
+g.depthFirstTraversalIterative("A");
+
+// Traverse graph iteratively
+g.breadthFirstTraversal("A");
