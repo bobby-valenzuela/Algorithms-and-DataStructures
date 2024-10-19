@@ -3,6 +3,15 @@ class Graph {
 
     constructor(){
         this.adjacencyList = {};
+
+        // adjacencyList format:
+        // {
+        //      A: ["B", "D"]
+        //      B: ["A", C", "D"]
+        //      C: ["B"]
+        //      D: ["A", "B"]
+        // }
+
     }
     
     // ########## Adding/Removing Vertices/Edges

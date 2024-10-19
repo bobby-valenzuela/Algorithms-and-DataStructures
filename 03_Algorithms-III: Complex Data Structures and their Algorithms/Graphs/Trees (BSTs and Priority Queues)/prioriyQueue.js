@@ -1,3 +1,7 @@
+// A data structure where each element has a priority and elements with higher priority are served before elements with a lower priority.
+// MinBinary Heap-based: 
+        // Meaning the highest priority item (item dequeued) will have the lowest value in priority (for example: priority of 1)
+        // And the next item enqueued will be pushed to the end of the list and will "Bubble Up" to find its proper place
 class PriorityQueue{
 
     constructor(){
@@ -15,7 +19,7 @@ class PriorityQueue{
         return this.values;
     }
 
-    // Once any value is enqueueed, bubble that value up the heap as needed to ensure parent is still smaller than any child nodes
+    // Once any value is enqueued, bubble that value up the heap as needed to ensure parent is still smaller than any child nodes
     bubbleUp(){
 
         let index = this.values.length - 1;
