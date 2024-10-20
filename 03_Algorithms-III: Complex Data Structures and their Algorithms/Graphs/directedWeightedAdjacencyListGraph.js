@@ -247,13 +247,10 @@ class WeightedGraph {
             // Get next high-priority thing from queue 
             // Since its ordered by distance, the vertices with the shortest distance from the startingVertexName are at the top (closest ones to startingVertexName)
             currentVertexNameToCheck = vertexNamesToCheck.dequeue().value;
-            console.log("TEST1". currentVertexNameToCheck)
 
             // If 
             if(currentVertexNameToCheck === endingVertexName){
                 // DONE - FOUND SHORTEST PATH
-                console.log(distancesFromStart);
-                console.log("Prior Verts", priorVertices)
                 
                 // ==== BUILD PATH ====
                 // Now that we've reached the last vertex (our destination), we can push all vertices into the path list in the backwards order - starting the ending vertex and working out way backwards to the start (we can reverse the order and add it the starting vertex before returning).
