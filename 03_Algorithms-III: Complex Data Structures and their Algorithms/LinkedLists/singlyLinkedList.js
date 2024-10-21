@@ -11,6 +11,7 @@ class SinglyLinkedList {
         this.tail = null;
         this.length = 0;
     }
+    // (append) Add node to end
     push(val) { 
         // Create new node (new tail)
         const newNode = new Node(val);
@@ -27,6 +28,7 @@ class SinglyLinkedList {
         this.length++;
         return this;
     }
+    // Remove last node
     pop() { 
 
         if (!this.head) return undefined;
@@ -74,7 +76,8 @@ class SinglyLinkedList {
         }
         return oldHead
     }
-    unshift(val) { // Add new node to beginning (get new head - point it to old head) 
+    // (prepend) Add new node to beginning (get new head - point it to old head) 
+    unshift(val) { 
         const newNode = new Node(val);
         if (!this.head) {
             this.head = newNode;
@@ -137,7 +140,8 @@ class SinglyLinkedList {
         const foundNode = this.get(index);
         const prevNode = this.get(index - 1);
         const nextNode = this.get(index + 1);
-         
+        
+        // To avoid a disconnect - connect the parent to the new next node
         prevNode.next = nextNode;
         this.length--;
 
@@ -153,6 +157,7 @@ class SinglyLinkedList {
         let current = this.tail;
         let prev = null;
 
+        // Start from the tail and work our way back to head updating all the next values as we go 
         while (current) { 
             
             // Save the next
@@ -160,11 +165,23 @@ class SinglyLinkedList {
 
             // Update next to point at the previous one
             current.next = prev;
+            // Update prev so on next iteration we can point .next to it 
             prev = current;
             current = next;
 
         }
 
+        // Visualization: 
+            // We're swapping the head+tail only nominally
+            // Then, we're traversing the list from start to finish in standard order and on each node we're setting the .next to be equal to the preious node we came from 
+        // [ 1 => 2 | 2 => 3 | 3 => 4 | 4 => 5 | 5 => 6 | 6 => N ]      <-- initial state
+        // [(1)=> N | 2 => 3 | 3 => 4 | 4 => 5 | 5 => 6 | 6 => N ]      <-- on first node set .next to previous node visited (null)
+        // [ 1 => N |(2)=> 1 | 3 => 4 | 4 => 5 | 5 => 6 | 6 => N ]      <-- on second node set .next to previous node visited (1)
+        // [ 1 => N | 2 => 1 |(3)=> 2 | 4 => 5 | 5 => 6 | 6 => N ]      <-- on third node set .next to previous node visted (2)
+        // [ 1 => N | 2 => 1 | 3 => 2 |(4)=> 3 | 5 => 6 | 6 => N ]      <-- ...
+        // [ 1 => N | 2 => 1 | 3 => 2 | 4 => 3 |(5)=> 4 | 6 => N ]
+        // [ 1 => N | 2 => 1 | 3 => 2 | 4 => 3 | 5 => 4 |(6)=> 5 ]
+        
 
     }
     traverse() { 

@@ -12,6 +12,7 @@ class DoublyLinkedList {
         this.tail = null;
         this.length = 0;
     }
+    // Append to end
     push(val) { 
         // Create new node (new tail)
         const newNode = new Node(val);
@@ -31,6 +32,7 @@ class DoublyLinkedList {
         this.length++;
         return this;
     }
+    // Remove from end
     pop() {
 
         if (!this.head) return undefined;
@@ -53,7 +55,8 @@ class DoublyLinkedList {
         popped.prev = null;
         return popped;
     }
-    shift() { // Remove/return first node 
+    // Remove/return first node 
+    shift() { 
         if (!this.head) return undefined;
         const oldHead = this.head;
         
@@ -76,7 +79,8 @@ class DoublyLinkedList {
         oldHead.next = null;
         return oldHead
     }
-    unshift(val) { // Add new node to beginning (get new head - point it to old head) 
+    // prepend - Add new node to beginning (get new head - point it to old head) 
+    unshift(val) { 
 
         const newNode = new Node(val);
         // If list is already empty
