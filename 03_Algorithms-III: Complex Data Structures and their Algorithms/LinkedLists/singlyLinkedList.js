@@ -163,10 +163,13 @@ class SinglyLinkedList {
             // Save the next
             const next = current.next;
 
-            // Update next to point at the previous one
+            // Update next to point at the previous visited node
             current.next = prev;
-            // Update prev so on next iteration we can point .next to it 
+
+            // Update prev so on next iteration we can point the current .next to it 
             prev = current;
+
+            // Move on to the next node
             current = next;
 
         }
