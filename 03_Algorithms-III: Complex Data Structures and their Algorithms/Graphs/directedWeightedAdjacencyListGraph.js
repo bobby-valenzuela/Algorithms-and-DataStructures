@@ -179,6 +179,42 @@ class WeightedGraph {
 
     }
 
+    // Slow and not most efficient most can handle negative weights
+    bellmanFord(start) {
+        const distances = {};
+        const vertices = Object.keys(this.adjacencyList);
+
+        // Step 1: Initialize distances to infinity, except start node
+        for (let vertex of vertices) {
+            distances[vertex] = Infinity;
+        }
+        distances[start] = 0;
+
+        // Step 2: Relax edges V-1 times (V = number of vertices)
+        for (let i = 0; i < vertices.length - 1; i++) {
+            for (let vertex of vertices) {
+                for (let neighbor of this.adjacencyList[vertex]) {
+                    const newDist = distances[vertex] + neighbor.weight;
+                    if (newDist < distances[neighbor.name]) {
+                        distances[neighbor.name] = newDist;
+                    }
+                }
+            }
+        }
+
+        // Step 3: Check for negative-weight cycles
+        for (let vertex of vertices) {
+            for (let neighbor of this.adjacencyList[vertex]) {
+                const newDist = distances[vertex] + neighbor.weight;
+                if (newDist < distances[neighbor.name]) {
+                    console.log("Graph contains a negative-weight cycle");
+                    return;
+                }
+            }
+        }
+
+        return distances;
+    }
 
 
     // Dijkstra's Shortest Path Algorithm
