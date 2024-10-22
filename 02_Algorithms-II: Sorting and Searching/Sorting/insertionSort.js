@@ -41,3 +41,35 @@ function insertionSort(arr){
 const result = insertionSort([23, 4, 5, 0, 15, 2]);
 
 console.log(result);
+
+
+
+
+
+
+
+
+function insertionSortAlertnate(array){
+
+    for ( let i = 0; i < array.length; i++ ){
+
+        // Check if current val is smaller than first
+        if( array[i] < array[0] ){
+            // Move number to first position
+            array.unshift( array.splice(i,1)[0]);
+        }
+        else{
+            // Find where number should go
+            for ( let j = 1; j < i; j++ ){
+
+                if( array[i] > array[j-1] && array[i] < array[j] ) array.splice(j, 0, array.splice(i,1)[0])
+
+            }
+
+        }
+
+
+    }
+
+
+}

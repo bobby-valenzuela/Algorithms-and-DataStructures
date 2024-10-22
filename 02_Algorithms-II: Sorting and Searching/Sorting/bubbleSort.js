@@ -1,3 +1,34 @@
+const numbers = [99,23,52,63,23,54,4,2,2,43,22]
+
+function bubbleSortSimple(array){
+    const length = array.length;
+
+    for(let i = 0; i < length; i++){
+
+        for(let j=0; j < length; j++){
+
+            if( array[j] > array[j+1] ){
+                // Swap numbers
+                let temp = array[j];
+                array[j] = array[j+1];
+                array[j+1] = temp;
+            }
+
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
 // Explanation of Each Step:
 // 1. swap function: Swaps two elements in the array. It takes the array and the indices of the two elements that need to be swapped.
 // 2. Outer loop (for (let i = arr.length; i > 0; i--)):
