@@ -91,7 +91,7 @@ class BinarySearchTree {
         return !!this.find(value);
     }
 
-    // Method to find the parent of a node and whether the node is a left or right child.
+    // Method to find the parent of a node and whether the child node is a left or right child.
     findParent(value) { 
 
         let foundValue = false;
@@ -128,8 +128,8 @@ class BinarySearchTree {
         return [previous, placement];
     }
 
-    // Method to remove a node from the tree.
-    remove(value) { 
+    // Method to remove a node from the tree and remove any subtrees under this node
+    removeCascade(value) { 
         // Find the node we want to remove.
         const foundNode = this.find(value);
         if (!foundNode) return undefined;
@@ -142,6 +142,82 @@ class BinarySearchTree {
 
         // Return the removed node.
         return foundNode;
+    }
+
+    // Remove a single node and
+    remove(value){
+
+        if(!this.root) return false;
+
+        // Find the node we want to remove.
+        const nodeToDelete = this.find(value);
+        if (!nodeToDelete) return undefined;
+
+        const [parentNode, nodeToDeleteSide] = this.findParent(value);
+        
+        if( ! nodeToDelete.right && !nodeToDelete.left){
+            // If no child then just remove this node
+            parentNode[nodeToDeleteSide] = null;
+        }
+
+        // Option 1: Has no right child
+        if( ! nodeToDelete.right ){
+            // Swap this node we're removing with left child (if exists)
+
+            // If we've removing the root - handle
+            if(!parentNode){
+                this.root = nodeToDelete.left;
+            }
+            else if(nodeToDelete.left){
+                parentNode[nodeToDeleteSide] = nodeToDelete.left;
+            }
+        }
+        // Option 2: Has Right child which doesn't have a left child
+        else if( ! nodeToDelete.right.left ){
+
+            if (!parentNode) {  // Removing the root
+                this.root = nodeToDelete.right;
+                this.root.left = nodeToDelete.left;  // Attach left subtree
+            } else {
+                // Right node replaces deleted node
+                parentNode[nodeToDeleteSide] = nodeToDelete.right;
+                // Attach left subtree
+                if(nodeToDelete.left) parentNode[nodeToDeleteSide].left = nodeToDelete.left;  
+            }
+
+
+        }
+        // Option 3: Has Right child which does have a left child (and possibly a right)
+        else{
+
+            // Find the smallest node in the right subtree (the in-order successor)
+            let smallest = nodeToDelete.right;
+            let smallestParent = nodeToDelete;
+
+            while (smallest.left) {
+                smallestParent = smallest;
+                smallest = smallest.left;
+            }
+
+            // Swap nodeToDelete with the smallest node
+            if (smallestParent !== nodeToDelete) {
+                smallestParent.left = smallest.right;  // Reconnect smallestParent to smallest's right child
+                smallest.right = nodeToDelete.right;  // Connect smallest to nodeToDelete's right subtree
+            }
+
+            smallest.left = nodeToDelete.left;  // Connect smallest to nodeToDelete's left subtree
+
+            // Handle replacing the nodeToDelete
+            if (!parentNode) {  // Removing the root
+                this.root = smallest;
+            } else {
+                parentNode[nodeToDeleteSide] = smallest;  // Replace nodeToDelete with smallest
+            }
+
+
+        }
+
+
     }
 
     // Breadth First Search (BFS) | Collects all nodes in an array and returns them
@@ -256,16 +332,20 @@ tree.insert(6);
 tree.insert(15);
 tree.insert(3);
 tree.insert(8);
-tree.insert(20);
+tree.insert(14);
 
 console.log("Tree: ", tree)
+console.log("Tree (ROOT): ", tree.root)
+console.log("Tree: (ROOT-L)", tree.root.left)
+console.log("Tree: (ROOT-R)", tree.root.right)
 console.log("BFS:", tree.BFS())
 console.log("DFS (preorder)", tree.DFSPreOrder())
 console.log("DFS (postorder)", tree.DFSPostOrder())
 console.log("DFS (inorder)", tree.DFSInOrder())
 
+// tree.remove(15)
 
-
+console.log("Tree: ", tree)
 
 // Note on BFS vs DFS:
 // BFS is ideal for narrow trees (we're working sideways so a very wide tree could be slow to traverse)

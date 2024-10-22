@@ -70,3 +70,30 @@ class Node{
     }
 }
 
+
+
+
+
+// NOT BEST PRACTICE - JUST FOR DEMONSTRATION
+class ArrayBasedStack {
+
+    constructor(){
+        this.array = [];
+    }
+
+    // Return last item (next to be popped) 
+    peek(){
+        return this.array[this.array.length-1]
+    }
+
+    // Add item to stack
+    push(value){
+        this.array.push(value);
+    }
+
+    // Remove and return last item
+    pop(){
+        return this.array.pop();
+    }
+
+}

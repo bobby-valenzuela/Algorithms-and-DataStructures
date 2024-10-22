@@ -50,7 +50,7 @@ Though easy to implement, they aren't are ideal because they uses indexes which 
 
 Array-based queues can only be created on of two ways:
 
-1. Using unshift (insert)and pop (to remove): Which is more intensive it comes to inserting, as the whole list needs to be re-indexed when inserting (since we're inserting at the start).
+1. Using unshift (insert) and pop (to remove): Which is more intensive it comes to inserting, as the whole list needs to be re-indexed when inserting (since we're inserting at the start).
 2. Using shift (to remove) and push (to insert): Which is more intensive it comes to removing, as the whole list needs to be re-indexed when removing (since we're removing from the start).
 
 This is way it's ideal to create a specific queue class.
