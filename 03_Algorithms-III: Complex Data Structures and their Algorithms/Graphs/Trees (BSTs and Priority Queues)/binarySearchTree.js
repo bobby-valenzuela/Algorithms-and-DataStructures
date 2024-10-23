@@ -313,6 +313,55 @@ class BinarySearchTree {
 
     }
 
+    // Array returning the numbers of nodes on each level
+    // EXAMPLE: [1, 2, 3]
+    //         o
+    //       /   \
+    //      o     o
+    //     / \   /
+    //    o   o o 
+    levelWidth(){
+
+        const arr = [this.root, 's'];
+        const counters = [0];
+
+        // So long as we have something more than the delimeter
+        while(arr.length > 1){
+
+            const node = arr.shift();
+
+            if(node === 's'){
+                counters.push(0);
+                arr.push('s');
+            }
+            else{
+                if(node.left) arr.push(node.left);
+                if(node.right) arr.push(node.right);
+                counters[counters.length-1]++;
+            }
+
+        }
+
+        return counters;
+
+    }
+
+    printTree(){
+        const treeLevels = this.levelWidth();
+        const treeWidth = treeLevels[treeLevels.length-1];
+        
+        // Width of each row - should be odd number to keep root at center
+        let rowWidth = treeWidth % 2 === 0 ? treeWidth + 1 : treeWidth;
+        rowWidth = rowWidth * 2;
+
+        let level = '';
+
+        for(let row = 0; row < treeLevels.length; row++){
+            level+=`o`.repeat(treeLevels[row])
+            console.log(level)
+        }
+
+    }
 
 }
 
@@ -335,6 +384,7 @@ tree.insert(8);
 tree.insert(14);
 
 console.log("Tree: ", tree)
+tree.printTree();
 console.log("Tree (ROOT): ", tree.root)
 console.log("Tree: (ROOT-L)", tree.root.left)
 console.log("Tree: (ROOT-R)", tree.root.right)
