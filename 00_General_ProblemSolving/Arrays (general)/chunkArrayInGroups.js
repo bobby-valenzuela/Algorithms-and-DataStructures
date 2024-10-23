@@ -14,3 +14,26 @@ function chunkArrayInGroups(arr, size) {
 }
   
 chunkArrayInGroups(["a", "b", "c", "d"], 2);
+
+// Alternate solution
+function chunk(array, size){
+
+    const chunked = [];
+
+    for( let element of array ){
+
+        const last = chunked[chunked.length-1]
+
+        // If no array in last chunk, start new one and initialize with first item
+        if(!last || last.length === size){
+            chunked.push([element])
+        }
+        else{
+            last.push(element)
+        }
+
+    }
+
+    return chunked;
+
+}
