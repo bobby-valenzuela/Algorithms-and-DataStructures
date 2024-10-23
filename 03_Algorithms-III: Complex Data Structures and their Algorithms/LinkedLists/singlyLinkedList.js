@@ -187,12 +187,23 @@ class SinglyLinkedList {
         
 
     }
+    // Return value at middle of linked list
+    getMidpoint(){
+        const midIndex = Math.floor(this.length / 2);
+        return this.get(midIndex).val;
+    }
     traverse() { 
         let current = this.head;
         while (current) { 
             current = current.next;
         }
     }
+
+    // Remove all nodes
+    clear(){
+        this.head = null;
+    }
+
     print() { 
         const arr = [];
         let current = this.head;
@@ -211,8 +222,11 @@ const list = new SinglyLinkedList();
 list.push("first");
 list.push("second");
 list.push("third");
+list.push("fourth");
+list.push("fifth");
 console.log(list)
-list.reverse();
+list.getMidpoint();
+// list.reverse();
 list.print()
 
 // list.remove(0);
