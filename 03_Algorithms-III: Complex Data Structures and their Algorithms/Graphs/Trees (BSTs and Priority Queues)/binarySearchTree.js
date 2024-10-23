@@ -4,6 +4,8 @@ class BinarySearchTree {
     constructor() { 
         // The tree starts empty, so the root is set to null.
         this.root = null;
+        this.left = null;
+        this.right = null;
     }
 
     // Method to insert a new value into the tree.
@@ -32,7 +34,7 @@ class BinarySearchTree {
 
             // Keep looping to find the correct spot for the new value.
             while (true) {
-                // This is what makes this Binary Tree and Binart SEARCH tree - we're trying to keep values ordered.
+                // This is what makes this Binary Tree and Binary SEARCH tree - we're trying to keep values ordered.
 
                 // If the value is less than the current node's value, go left.
                 if (value < current.value) { 
@@ -59,6 +61,33 @@ class BinarySearchTree {
                 }
             }
         }
+    }
+    // Performs an insert recursively - requires a starting node to be passed in
+    insertRecursive(value, currentNode) { 
+
+        // If the value is not a number, exit the function.
+        if (isNaN(value)) return null;
+       
+        // Make sure value is a number (in case it was a string that could be a number).
+        value = parseFloat(value);
+
+        // If the value is the same as the current node, do not insert duplicates.
+        if (value === currentNode.value) return undefined;
+
+
+        if(value < currentNode.value && currentNode.left){        // If we need to move left and we can, move left
+            this.insertRecursive(value, currentNode.left);
+        }
+        else if(value < currentNode.value){                // If we need to move left but we can't, create new left and save node there
+            currentNode.left = new Node(value);
+        }
+        else if(value > currentNode.value && currentNode.right){  // If we need to move right and we can, move right
+            this.insertRecursive(value, currentNode.right);
+        }
+        else if(value > currentNode.value){                // If we need to move right but we can't, create new right and save node there
+            currentNode.right = new Node(value);
+        }
+
     }
 
     // Method to search for a value in the tree.
@@ -126,98 +155,6 @@ class BinarySearchTree {
 
         // Return the parent node and whether the value is a left or right child.
         return [previous, placement];
-    }
-
-    // Method to remove a node from the tree and remove any subtrees under this node
-    removeCascade(value) { 
-        // Find the node we want to remove.
-        const foundNode = this.find(value);
-        if (!foundNode) return undefined;
-
-        // Find the parent of the node we want to remove and which side it's on.
-        const [parent, side] = this.findParent(value);
-
-        // Set the parent's left or right pointer to null, effectively "cutting off" the node.
-        parent[side] = null;
-
-        // Return the removed node.
-        return foundNode;
-    }
-
-    // Remove a single node and
-    remove(value){
-
-        if(!this.root) return false;
-
-        // Find the node we want to remove.
-        const nodeToDelete = this.find(value);
-        if (!nodeToDelete) return undefined;
-
-        const [parentNode, nodeToDeleteSide] = this.findParent(value);
-        
-        if( ! nodeToDelete.right && !nodeToDelete.left){
-            // If no child then just remove this node
-            parentNode[nodeToDeleteSide] = null;
-        }
-
-        // Option 1: Has no right child
-        if( ! nodeToDelete.right ){
-            // Swap this node we're removing with left child (if exists)
-
-            // If we've removing the root - handle
-            if(!parentNode){
-                this.root = nodeToDelete.left;
-            }
-            else if(nodeToDelete.left){
-                parentNode[nodeToDeleteSide] = nodeToDelete.left;
-            }
-        }
-        // Option 2: Has Right child which doesn't have a left child
-        else if( ! nodeToDelete.right.left ){
-
-            if (!parentNode) {  // Removing the root
-                this.root = nodeToDelete.right;
-                this.root.left = nodeToDelete.left;  // Attach left subtree
-            } else {
-                // Right node replaces deleted node
-                parentNode[nodeToDeleteSide] = nodeToDelete.right;
-                // Attach left subtree
-                if(nodeToDelete.left) parentNode[nodeToDeleteSide].left = nodeToDelete.left;  
-            }
-
-
-        }
-        // Option 3: Has Right child which does have a left child (and possibly a right)
-        else{
-
-            // Find the smallest node in the right subtree (the in-order successor)
-            let smallest = nodeToDelete.right;
-            let smallestParent = nodeToDelete;
-
-            while (smallest.left) {
-                smallestParent = smallest;
-                smallest = smallest.left;
-            }
-
-            // Swap nodeToDelete with the smallest node
-            if (smallestParent !== nodeToDelete) {
-                smallestParent.left = smallest.right;  // Reconnect smallestParent to smallest's right child
-                smallest.right = nodeToDelete.right;  // Connect smallest to nodeToDelete's right subtree
-            }
-
-            smallest.left = nodeToDelete.left;  // Connect smallest to nodeToDelete's left subtree
-
-            // Handle replacing the nodeToDelete
-            if (!parentNode) {  // Removing the root
-                this.root = smallest;
-            } else {
-                parentNode[nodeToDeleteSide] = smallest;  // Replace nodeToDelete with smallest
-            }
-
-
-        }
-
-
     }
 
     // Breadth First Search (BFS) | Collects all nodes in an array and returns them
@@ -363,6 +300,97 @@ class BinarySearchTree {
 
     }
 
+    // Method to remove a node from the tree and remove any subtrees under this node
+    removeCascade(value) { 
+        // Find the node we want to remove.
+        const foundNode = this.find(value);
+        if (!foundNode) return undefined;
+
+        // Find the parent of the node we want to remove and which side it's on.
+        const [parent, side] = this.findParent(value);
+
+        // Set the parent's left or right pointer to null, effectively "cutting off" the node.
+        parent[side] = null;
+
+        // Return the removed node.
+        return foundNode;
+    }
+
+    // Remove a single node and
+    remove(value){
+
+        if(!this.root) return false;
+
+        // Find the node we want to remove.
+        const nodeToDelete = this.find(value);
+        if (!nodeToDelete) return undefined;
+
+        const [parentNode, nodeToDeleteSide] = this.findParent(value);
+        
+        if( ! nodeToDelete.right && !nodeToDelete.left){
+            // If no child then just remove this node
+            parentNode[nodeToDeleteSide] = null;
+        }
+
+        // Option 1: Has no right child
+        if( ! nodeToDelete.right ){
+            // Swap this node we're removing with left child (if exists)
+
+            // If we've removing the root - handle
+            if(!parentNode){
+                this.root = nodeToDelete.left;
+            }
+            else if(nodeToDelete.left){
+                parentNode[nodeToDeleteSide] = nodeToDelete.left;
+            }
+        }
+        // Option 2: Has Right child which doesn't have a left child
+        else if( ! nodeToDelete.right.left ){
+
+            if (!parentNode) {  // Removing the root
+                this.root = nodeToDelete.right;
+                this.root.left = nodeToDelete.left;  // Attach left subtree
+            } else {
+                // Right node replaces deleted node
+                parentNode[nodeToDeleteSide] = nodeToDelete.right;
+                // Attach left subtree
+                if(nodeToDelete.left) parentNode[nodeToDeleteSide].left = nodeToDelete.left;  
+            }
+
+
+        }
+        // Option 3: Has Right child which does have a left child (and possibly a right)
+        else{
+
+            // Find the smallest node in the right subtree (the in-order successor)
+            let smallest = nodeToDelete.right;
+            let smallestParent = nodeToDelete;
+
+            while (smallest.left) {
+                smallestParent = smallest;
+                smallest = smallest.left;
+            }
+
+            // Swap nodeToDelete with the smallest node
+            if (smallestParent !== nodeToDelete) {
+                smallestParent.left = smallest.right;  // Reconnect smallestParent to smallest's right child
+                smallest.right = nodeToDelete.right;  // Connect smallest to nodeToDelete's right subtree
+            }
+
+            smallest.left = nodeToDelete.left;  // Connect smallest to nodeToDelete's left subtree
+
+            // Handle replacing the nodeToDelete
+            if (!parentNode) {  // Removing the root
+                this.root = smallest;
+            } else {
+                parentNode[nodeToDeleteSide] = smallest;  // Replace nodeToDelete with smallest
+            }
+
+
+        }
+
+
+    }
 }
 
 // This class represents a node in the tree.
@@ -376,52 +404,39 @@ class Node {
 
 // Create a new binary search tree.
 const tree = new BinarySearchTree();
-tree.insert(10);   // Insert values into the tree.
+
+// Inserting
+tree.insert(10);   
 tree.insert(6);
 tree.insert(15);
 tree.insert(3);
 tree.insert(8);
 tree.insert(14);
 
-console.log("Tree: ", tree)
-tree.printTree();
-console.log("Tree (ROOT): ", tree.root)
-console.log("Tree: (ROOT-L)", tree.root.left)
-console.log("Tree: (ROOT-R)", tree.root.right)
-console.log("BFS:", tree.BFS())
-console.log("DFS (preorder)", tree.DFSPreOrder())
-console.log("DFS (postorder)", tree.DFSPostOrder())
-console.log("DFS (inorder)", tree.DFSInOrder())
+tree.insertRecursive(13, tree.root);
+tree.insertRecursive(23, tree.root);
+tree.insertRecursive(11, tree.root);
 
-// tree.remove(15)
+// Searching
+tree.find(10);           // Find node by value
+tree.contains(10);       // Check if a value exists in the tree
+tree.findParent(10);     // Finds parent and whether the child node is a left or right child
+tree.BFS();                     // Breadth-First-Search returning an array with found values
+tree.DFSPreorder();             // Depth-First-Search returning an array with found values in Pre-Order style
+tree.DFSPostOrder();            // Depth-First-Search returning an array with found values in Post-Order style
+tree.DFSInOrder();              // Depth-First-Search returning an array with found values in proper order
 
-console.log("Tree: ", tree)
+// Removing
+tree.remove(10);         // Remove a single node (by value) keeping the rest of the subtree (if any) intact
+tree.removeCascade(3);          // Remove a node and any subtrees entirely from the tree
+
+// Visualizing Tree
+tree.printTree();               // Visual of tree 
+tree.levelWidth();              // An array containing the number of nodes on each level
+
+
 
 // Note on BFS vs DFS:
 // BFS is ideal for narrow trees (we're working sideways so a very wide tree could be slow to traverse)
 // DFS is ideal for short trees  (we're working vertically so a very tall tree could be slow to traverse)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// tree.root = new Node(10);
-// tree.left = new Node(7);
-// tree.right = new Node(15);
-// tree.left.right = new Node(9);
-
 
