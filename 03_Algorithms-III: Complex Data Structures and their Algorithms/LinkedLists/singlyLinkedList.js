@@ -216,6 +216,45 @@ class SinglyLinkedList {
     }
 }
 
+// Check if a linked list is circular
+function circular(list) {
+    let fast = list.head;
+    let slow  = list.head;
+
+    while(fast.next && fast.next.next){
+
+        fast = fast.next.next;
+        slow = slow.next;
+        
+        if(fast === slow){
+            return true
+        }
+        
+    }
+    
+    return false;
+    
+}
+
+function nthFromLast(list, n){
+    let slow = list.head;
+    let fast = list.head;
+
+    // Move fast pointer forward
+    while(n > 0){
+        fast = fast.next;
+        n--;
+    }
+
+    // Move sloe pointer forward a # of times equal to the offset of the fast pointer
+    while(fast.next){
+        slow = slow.next;
+        fast = fast.next;
+    }
+
+    return slow;
+
+}
 
 
 const list = new SinglyLinkedList();
@@ -228,6 +267,7 @@ console.log(list)
 list.getMidpoint();
 // list.reverse();
 list.print()
+
 
 // list.remove(0);
 // list.remove(1);
