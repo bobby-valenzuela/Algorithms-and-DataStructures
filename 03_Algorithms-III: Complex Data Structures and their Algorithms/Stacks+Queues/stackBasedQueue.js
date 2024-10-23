@@ -1,39 +1,39 @@
 class StackBasedQueue {
     constructor() {
-        this.first = [];
-        this.last = [];
+        this.mainStack = [];
+        this.removalStack = [];
     }
 
     enqueue(value) {
-        const length = this.first.length;
-
-        for (let i = 0; i < length; i++) {
-            this.last.push(this.first.pop());
-        }
-
-        this.last.push(value);
+        
+        this.mainStack.push(value);
 
         return this;
     }
 
     dequeue() {
-        const length = this.last.length;
 
-        for (let i = 0; i < length; i++) {
-            this.first.push(this.last.pop());
+        // If removalStack is empty, move all elements from mainStack
+        if (this.removalStack.length === 0) {
+
+            // Move items from mainStack to removalStack (this inverses the order allowing us to pop off the 'First-In' item from the end of the removalStack)
+            while(this.mainStack.length > 0){
+                this.removalStack.push(this.mainStack.pop());
+            }
         }
 
-        this.first.pop();
+        // Remove and return First-In item
+        return this.removalStack.pop();
 
-        return this;
     }
 
+    // Peek at whats to be popped off next
     peek() {
-        if (this.first.length > 0) {
-            return this.first[this.first.length - 1];
+        // Check the front of the queue (removalStack first)
+        if (this.removalStack.length > 0) {
+            return this.removalStack[this.removalStack.length - 1];
         }
-
-        return this.last[0];
+        return this.mainStack[0];
     }
 }
 

@@ -56,3 +56,37 @@ Array-based queues can only be created on of two ways:
 This is way it's ideal to create a specific queue class.
 
 */
+
+
+class arrayBasedQueue {
+
+    constructor(){
+        this.data = [];
+    }
+
+    add(record){
+        this.data.unshift(record)
+    }
+
+    remove(){
+        return this.data.pop()
+    }
+
+    peek(){
+        return this.data[this.data.length - 1]
+    }
+
+
+}
+
+// weave
+function weave(q1, q2){
+    const q = new arrayBasedQueue();
+
+    while(q1.peek() || q2.peek()){
+        if(q1.peek()) q.add(q1.remove())
+        if(q2.peek()) q.add(q2.remove())
+    }
+
+    return q;
+}
