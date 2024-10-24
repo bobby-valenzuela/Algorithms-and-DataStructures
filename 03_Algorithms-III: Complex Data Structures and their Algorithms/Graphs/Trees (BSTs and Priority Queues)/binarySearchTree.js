@@ -391,6 +391,26 @@ class BinarySearchTree {
 
 
     }
+
+    // Validate a binary search tree: ensure every node's left hand child is less than parent nodes value and that every node's right hand child is greater than its parent
+    validate(){
+        
+        function validateNodes(node, min = null, max = null){
+
+            
+            if ( min !== null && node.value < min ) return false;   // If have a value thats less than min - fail validation
+            if ( max !== null && node.value > max ) return false;   // If have a value thats greater than max - fail validation
+
+            if ( node.left && !validateNodes(node.left, min, node.value) )   return false;      // Validate left node (if exists) and set max to current 
+            if ( node.right && !validateNodes(node.right, node.value, max) ) return false;      // Validate right node (if exists) and set min to current 
+
+            return true;        // If we finish recusively checking nodes and nothing failed - then we're good
+        }
+
+        return validateNodes(this.root);
+
+    }
+
 }
 
 // This class represents a node in the tree.
@@ -422,7 +442,7 @@ tree.find(10);           // Find node by value
 tree.contains(10);       // Check if a value exists in the tree
 tree.findParent(10);     // Finds parent and whether the child node is a left or right child
 tree.BFS();                     // Breadth-First-Search returning an array with found values
-tree.DFSPreorder();             // Depth-First-Search returning an array with found values in Pre-Order style
+tree.DFSPreOrder();             // Depth-First-Search returning an array with found values in Pre-Order style
 tree.DFSPostOrder();            // Depth-First-Search returning an array with found values in Post-Order style
 tree.DFSInOrder();              // Depth-First-Search returning an array with found values in proper order
 
@@ -433,6 +453,9 @@ tree.removeCascade(3);          // Remove a node and any subtrees entirely from 
 // Visualizing Tree
 tree.printTree();               // Visual of tree 
 tree.levelWidth();              // An array containing the number of nodes on each level
+
+// Validate Binary Search Tree
+tree.validate();
 
 
 

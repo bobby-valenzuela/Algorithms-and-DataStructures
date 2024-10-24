@@ -66,17 +66,11 @@ function mergeSort(arr) {
     // Base case: If the array has 1 or fewer elements, it's already sorted.
     if (arr.length <= 1) return arr;
     
-    // Find the middle point of the array.
-    let mid = Math.floor(arr.length / 2);
+    let mid = Math.floor(arr.length / 2);       // Find the middle point of the array.
+    let left = mergeSort(arr.slice(0, mid));    // Recursively split and sort the left half of the array.
+    let right = mergeSort(arr.slice(mid))       // Recursively split and sort the right half of the array.;
     
-    // Recursively split and sort the left half of the array.
-    let left = mergeSort(arr.slice(0, mid));
-    
-    // Recursively split and sort the right half of the array.
-    let right = mergeSort(arr.slice(mid));
-    
-    // Merge the two sorted halves back together.
-    return merge(left, right);
+    return merge(left, right);                  // Merge the two sorted halves back together.
 }
 
 // Test the mergeSort function with a sample array and print the sorted result.
