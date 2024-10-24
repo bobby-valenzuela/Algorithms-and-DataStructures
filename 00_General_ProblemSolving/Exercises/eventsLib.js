@@ -42,11 +42,12 @@ class Events {
 }
 
 
-const handler = Events();
+const handler = new Events();
 
 function sayHi(){
     console.log("Hi! Thanks for clicking me!");
 }
 
 handler.on("click", sayHi );
-
+handler.trigger("click" );
+handler.off("click")
