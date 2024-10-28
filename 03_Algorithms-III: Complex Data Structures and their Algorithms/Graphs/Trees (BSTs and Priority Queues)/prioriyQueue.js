@@ -1,3 +1,4 @@
+// Also called an indexed priority tree
 // A data structure where each element has a priority and elements with higher priority are served before elements with a lower priority.
 // MinBinary Heap-based: 
         // Meaning the highest priority item (item dequeued) will have the lowest value in priority (for example: priority of 1)
