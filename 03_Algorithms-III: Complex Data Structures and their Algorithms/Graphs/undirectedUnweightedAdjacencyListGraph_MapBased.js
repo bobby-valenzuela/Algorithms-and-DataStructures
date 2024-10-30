@@ -42,8 +42,8 @@ class Graph {
 
     removeEdge(vertex1, vertex2){
         // Remove vertex2 from the vertex1 edges and vice versa
-        if( this.adjacencyList.has(vertex1) ) this.adjacencyList.get(vertex1) = this.adjacencyList.get(vertex1).filter( v => v != vertex2);
-        if( this.adjacencyList.has(vertex2) ) this.adjacencyList.get(vertex2) = this.adjacencyList.get(vertex2).filter( v => v != vertex1);
+        if( this.adjacencyList.has(vertex1) ) this.adjacencyList.set(vertex1, this.adjacencyList.get(vertex1).filter( v => v != vertex2) );
+        if( this.adjacencyList.has(vertex2) ) this.adjacencyList.get(vertex2, this.adjacencyList.get(vertex2).filter( v => v != vertex1) );
     }
 
     removeVertex(vertex){
