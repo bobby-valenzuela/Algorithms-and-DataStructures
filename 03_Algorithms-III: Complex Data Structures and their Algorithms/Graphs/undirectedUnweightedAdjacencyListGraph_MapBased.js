@@ -1,8 +1,9 @@
 // An unDirected, unweighted Graph built using an adjacency list
+// Using JavaScript Maps and Sets where reasonable
 class Graph {
 
     constructor(){
-        this.adjacencyList = {};
+        this.adjacencyList = new Map();
 
         // adjacencyList format:
         // {
@@ -16,47 +17,47 @@ class Graph {
     
     // ########## Adding/Removing Vertices/Edges
     addVertext(vertex){
-        if( ! this.adjacencyList[vertex] ) this.adjacencyList[vertex] = [];
+        if( ! this.adjacencyList.has(vertex) ) this.adjacencyList.set(vertex,[]);
     }
 
     addEdge(vertex1, vertex2){
         // If the specified vertex doesn't exist - add it
-        if( ! this.adjacencyList[vertex1]){
+        if( ! this.adjacencyList.has(vertex1)){
             this.addVertext(vertex1);
         }
 
-        // Add edge
-        this.adjacencyList[vertex1].push(vertex2);
+        // Add vertex
+        this.adjacencyList.get(vertex1).push(vertex2);
         
         // Repeat for the second vertex
         
         // If the specified vertex doesn't exist - add it
-        if( ! this.adjacencyList[vertex2]){
+        if( ! this.adjacencyList.has(vertex2)){
             this.addVertext(vertex2);
         }
 
-        // Add edge
-        this.adjacencyList[vertex2].push(vertex1);
+        // Add vertex
+        this.adjacencyList.get(vertex2).push(vertex1);
     }
 
     removeEdge(vertex1, vertex2){
         // Remove vertex2 from the vertex1 edges and vice versa
-        if( this.adjacencyList[vertex1] ) this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter( v => v != vertex2);
-        if( this.adjacencyList[vertex2] ) this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter( v => v != vertex1);
+        if( this.adjacencyList.has(vertex1) ) this.adjacencyList.get(vertex1) = this.adjacencyList.get(vertex1).filter( v => v != vertex2);
+        if( this.adjacencyList.has(vertex2) ) this.adjacencyList.get(vertex2) = this.adjacencyList.get(vertex2).filter( v => v != vertex1);
     }
 
     removeVertex(vertex){
         //  Guard clause
-        if( ! this.adjacencyList[vertex] ) return;
+        if( ! this.adjacencyList.has(vertex) ) return;
 
         //Find edges and remove this vertex from those other edges
-        for(let v of this.adjacencyList[vertex] ){
+        for(let v of this.adjacencyList.get(vertex) ){
             this.removeEdge(vertex, v);
         } 
 
 
         //Remove vertex itself from the list
-        delete this.adjacencyList[vertex];
+        this.adjacencyList.delete(vertex);
     }
 
 
@@ -84,7 +85,7 @@ class Graph {
             result.push(vertex);
 
             // Loop through all neighbor vertices of this vertex
-            this.adjacencyList[vertex]
+            this.adjacencyList.get(vertex)
                 .forEach( neighbor => {
 
                 
@@ -123,7 +124,7 @@ class Graph {
             result.push(currentVertex);
 
             // Loop through all neighbors of this vertex    
-            this.adjacencyList[currentVertex].forEach( neighbor => {
+            this.adjacencyList.get(currentVertex).forEach( neighbor => {
                 // Make sure we haven't visited this neighbor
                 if(! visited[neighbor]){
 
@@ -162,7 +163,7 @@ class Graph {
             result.push(currentVertex);
 
             // Add neightbors to queue (if not visited)
-            this.adjacencyList[currentVertex].forEach( neighbor=>{
+            this.adjacencyList.get(currentVertex).forEach( neighbor=>{
 
                 if(!visited[neighbor]){
 
