@@ -85,7 +85,27 @@ const addEdge = (graph, node1, node2) => {
     if (!graph[node2]) graph[node2] = [];
     if (!graph[node2].includes(node1)) graph[node2].push(node1);
 }
-``
+
+// Convert Matrix to list
+const buildGraph = edges =>{
+    
+    const graph = {};
+
+    for(let edge of edges){
+
+        const [ a, b ] = edge;
+
+        if(!(a in graph)) graph[a] = [];
+        if(!(b in graph)) graph[b] = [];
+
+        graph[a].push(b);
+        graph[b].push(a);
+
+    }
+
+    return graph;
+
+};
 
 // ACTIONS
 const BFSResults = breadthFirstSearch(officeRelationships, "Michael Scott");
@@ -93,6 +113,7 @@ const DFSResults = depthFirstSearch(officeRelationships, "Michael Scott");
 
 addNode(officeRelationships, "Todd Packer");
 addEdge(officeRelationships, "Todd Packer", "Michael Scott");
+
 
 
 
