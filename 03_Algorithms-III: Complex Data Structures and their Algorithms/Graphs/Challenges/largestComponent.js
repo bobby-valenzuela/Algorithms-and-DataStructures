@@ -18,7 +18,7 @@ const exploreSize = (graph, node, visited) => {
   
   visited.add(node);
   
-  let size = 1;
+  let size = 1;     // Start with 1 so we count the current node we're on
   for (let neighbor of graph[node]) {
     size += exploreSize(graph, neighbor, visited);
   }
